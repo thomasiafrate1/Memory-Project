@@ -1,21 +1,71 @@
-body{
-  margin: 0;
-  padding: 0;
+/* src/App.css */
+
+/* Style de la barre de navigation */
+nav {
+  background-color: #4CAF50;
+  padding: 10px;
+  color: white;
 }
 
-.navbar{
+nav ul {
   display: flex;
-  background-color: aqua;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-around;
+  list-style: none;
 }
 
-.navbarUL{
-  display: flex;
-  margin-right: 50px;
-  align-items: center;
+nav ul li {
+  margin: 0 10px;
 }
 
-ul li{
-  margin-left: 20px;
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+/* Style de la page d'accueil */
+main {
+  padding: 20px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* src/components/Footer.css */
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.footer-content p:first-child {
+  font-weight: bold;
+}
+
+/* Ajouter un style pour le lien si tu souhaites des liens dans le footer */
+.footer-content a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+.footer-content a:hover {
+  text-decoration: underline;
 }
