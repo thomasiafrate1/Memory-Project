@@ -50,10 +50,10 @@ const Dashboard = () => {
         </div>
 
         <div className="Stats">
-          <h3>Statistiques</h3>
+          <h2>Statistiques</h2>
           <p>Cartes révisées aujourd'hui : 5</p>
           <p>Niveau atteint : 2</p>
-          <h3>Rappel quotidien</h3>
+          <h2>Rappel quotidien</h2>
           <p>Prochaine révision : 18:00</p>
         </div>
       </main>
