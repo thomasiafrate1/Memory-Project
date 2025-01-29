@@ -2,8 +2,26 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
 
+
+
+
+
+
 const Dashboard = () => {
-  const [categories, setCategories] = useState<string[]>(["Langues", "Histoire", "Programmation"]);
+  const [categories, setCategories] = useState<string[]>(["Anglais", "Histoire", "Programmation", "Géographie", "Mathématiques", "Français", "Marketing", "Luxe", "Ecologie", "Politique"]);
+  const [imageCat] = useState<string[]>([
+    "/anglais.jpg",
+    "/histoire.jpg",
+    "/programmation.jpg",
+    "/geographie.jpg",
+    "/mathematiques.jpg",
+    "/francais.jpg",
+    "/marketing.jpg",
+    "/luxe.jpg",
+    "/ecologie.jpg",
+    "/politique.jpg",
+  ]);
+
 
   const addCategory = () => {
     const newCategory = prompt("Entrez le nom de la nouvelle catégorie :");
@@ -20,11 +38,12 @@ const Dashboard = () => {
           <h2>Catégories</h2>
           <div className="cat">
             {categories.map((category, index) => (
-              <div key={index}>
+              <div key={index} className="CarteCat" style={{ backgroundImage: `url(${imageCat[index]})` }}>
+                <div className="titrebouton">
                 <h3>{category}</h3>
                 <button>Voir les thèmes</button>
+                </div>
               </div>
-            
             ))}
           </div>
           <button className="buttonCreate" onClick={addCategory}>Créer une catégorie</button>

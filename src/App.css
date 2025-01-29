@@ -34,7 +34,7 @@ nav a {
 
 .cat{ 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
 }
 
@@ -47,6 +47,29 @@ nav a {
   padding: 10px;
 }
 
+
+.CarteCat{
+  display: flex;
+  width: 12vw;
+  background-color: #333;
+  height: 30vh;
+  background-size: cover; /* Fait en sorte que l'image couvre toute la div */
+  background-position: center; /* Centre l'image */
+  background-repeat: no-repeat; /* Empêche la répétition */
+  border-radius: 10px; /* Optionnel : coins arrondis */
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.titrebouton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+}
 /* Style de la page d'accueil */
 main {
   padding: 20px;
