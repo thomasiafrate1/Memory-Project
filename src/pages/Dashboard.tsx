@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
-// import Footer from "../components/Footer.tsx";
 
 const Dashboard = () => {
   const [categories, setCategories] = useState<string[]>(["Langues", "Histoire", "Programmation"]);
@@ -16,21 +15,22 @@ const Dashboard = () => {
   return (
     <div>
       <Navbar />
-      <main style={{ display: "flex", justifyContent: "space-between" }}>
-        <div style={{ flex: 1 }}>
+      <main>
+        <div className="catGeneral">
           <h2>Catégories</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
+          <div className="cat">
             {categories.map((category, index) => (
               <div key={index}>
                 <h3>{category}</h3>
                 <button>Voir les thèmes</button>
               </div>
+            
             ))}
           </div>
-          <button style={{ marginTop: "20px" }} onClick={addCategory}>Créer une catégorie</button>
+          <button className="buttonCreate" onClick={addCategory}>Créer une catégorie</button>
         </div>
 
-        <div style={{ width: "300px", padding: "10px" }}>
+        <div className="Stats">
           <h3>Statistiques</h3>
           <p>Cartes révisées aujourd'hui : 5</p>
           <p>Niveau atteint : 2</p>

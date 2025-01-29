@@ -1,4 +1,9 @@
-/* src/App.css */
+/* DASHBOARD */
+
+main{
+  display: flex;
+  justify-content: space-between;
+}
 
 /* Style de la barre de navigation */
 nav {
@@ -21,6 +26,25 @@ nav a {
   text-decoration: none;
   color: white;
   font-weight: bold;
+}
+
+.catGeneral{
+  flex: 1;
+}
+
+.cat{ 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.buttonCreate{
+  margin-top: 20px;
+}
+
+.Stats{
+  width: 300px;
+  padding: 10px;
 }
 
 /* Style de la page d'accueil */
@@ -69,3 +93,5 @@ button:hover {
 .footer-content a:hover {
   text-decoration: underline;
 }
+
+
