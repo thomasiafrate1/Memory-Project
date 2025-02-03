@@ -1,35 +1,23 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
-
-
-
-
-
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
-  const [categories, setCategories] = useState<string[]>(["Anglais", "Histoire", "Programmation", "Géographie", "Mathématiques", "Français", "Marketing", "Luxe", "Ecologie", "Politique"]);
-  const [imageCat] = useState<string[]>([
-    "/anglais.jpg",
-    "/histoire.jpg",
-    "/programmation.jpg",
-    "/geographie.jpg",
-    "/mathematiques.jpg",
-    "/francais.jpg",
-    "/marketing.jpg",
-    "/luxe.jpg",
-    "/ecologie.jpg",
-    "/politique.jpg",
+  const [categories] = useState<{ title: string; image: string; originalCat: boolean }[]>([
+    { title: "Anglais", image: "/anglais.jpg", originalCat: true },
+    { title: "Histoire", image: "/histoire.jpg", originalCat: true },
+    { title: "Programmation", image: "/programmation.jpg", originalCat: true },
+    { title: "Géographie", image: "/geographie.jpg", originalCat: true },
+    { title: "Mathématiques", image: "/mathematiques.jpg", originalCat: true },
+    { title: "Français", image: "/francais.jpg", originalCat: true },
+    { title: "Marketing", image: "/marketing.jpg", originalCat: true },
+    { title: "Luxe", image: "/luxe.jpg", originalCat: true },
+    { title: "Ecologie", image: "/ecologie.jpg", originalCat: true },
+    { title: "Politique", image: "/politique.jpg", originalCat: true },
   ]);
-
-
-  const addCategory = () => {
-    const newCategory = prompt("Entrez le nom de la nouvelle catégorie :");
-    if (newCategory) {
-      setCategories([...categories, newCategory]);
-    }
-  };
-
+  
+  
   return (
     <div>
       <Navbar />
@@ -38,15 +26,14 @@ const Dashboard = () => {
           <h2>Catégories</h2>
           <div className="cat">
             {categories.map((category, index) => (
-              <div key={index} className="CarteCat" style={{ backgroundImage: `url(${imageCat[index]})` }}>
+              <div key={index} className="CarteCat" style={{ backgroundImage: `url(${category.image})` }}>
                 <div className="titrebouton">
-                <h3>{category}</h3>
-                <button>Voir les thèmes</button>
+                  <h3>{category.title}</h3>
+                  <button><Link to="/themes">Aller</Link></button>
                 </div>
               </div>
             ))}
           </div>
-          <button className="buttonCreate" onClick={addCategory}>Créer une catégorie</button>
         </div>
 
         <div className="Stats">

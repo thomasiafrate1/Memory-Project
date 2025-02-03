@@ -148,4 +148,22 @@ button:hover {
   text-decoration: underline;
 }
 
+.modal{
+  border-radius: 10px;
+  position: absolute;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 19vh;
+  margin-left: 30vw;
+  width: 30vw;
+  height: 40vh;
+  background-color: aliceblue;
+}
 
+.modal div{
+  margin-bottom: 20px;
+  align-items: center;
+  display: flex;
+}
