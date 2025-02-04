@@ -3,10 +3,10 @@ import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
 
 const Themes = () => {
-  const [categories, setCategories] = useState<{ title: string; image: string; originalCat: boolean }[]>([]);
+  const [categories, setCategories] = useState<{ title: string; color: string; originalCat: boolean }[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newTitle, setNewTitle] = useState("");
-  const [newImage, setNewImage] = useState<string | null>(null);
+  const [newColor, setNewColor] = useState<string | null>(null);
 
   // Fonction pour récupérer les catégories depuis localStorage
   const loadCategories = () => {
@@ -24,8 +24,6 @@ const Themes = () => {
         console.error("Erreur de parsing du localStorage:", error);
         setCategories([]);
       }
-    } else {
-      console.log("Salut")
     }
   };
 
@@ -34,41 +32,37 @@ const Themes = () => {
     loadCategories();
   }, []);
 
-  // Gérer le changement de titre dans le modal
+  // Gérer le changement de titre
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewTitle(event.target.value);
   };
 
-  // Gérer le changement d'image
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setNewImage(imageUrl);
-    }
+  // Gérer la sélection de couleur
+  const handleColorSelect = (color: string) => {
+    setNewColor(color);
   };
 
-  // Ajouter une nouvelle catégorie
+  // Ajouter une nouvelle catégorie avec la couleur sélectionnée
   const addCategoryFromModal = () => {
-    if (newTitle && newImage) {
-      const newCategory = { title: newTitle, image: newImage, originalCat: false };
+    if (newTitle && newColor) {
+      const newCategory = { title: newTitle, color: newColor, originalCat: false };
       const updatedCategories = [...categories, newCategory];
 
       setCategories(updatedCategories);
       localStorage.setItem("categories", JSON.stringify(updatedCategories));
 
       setNewTitle("");
-      setNewImage(null);
+      setNewColor(null);
       setIsModalOpen(false);
     } else {
-      alert("Veuillez entrer un titre et sélectionner une image !");
+      alert("Veuillez entrer un titre et choisir une couleur !");
     }
   };
 
   // Réinitialiser les catégories
   const resetCategories = () => {
     localStorage.removeItem("categories");
-    loadCategories(); // Recharge les valeurs par défaut
+    loadCategories();
   };
 
   return (
@@ -79,7 +73,11 @@ const Themes = () => {
         <div className="cat">
           {categories.length > 0 ? (
             categories.map((category, index) => (
-              <div key={index} className="CarteCat" style={{ backgroundColor: `red` }}>
+              <div 
+                key={index} 
+                className="CarteCat" 
+                style={{ backgroundColor: category.color, padding: "20px", borderRadius: "10px", margin: "10px" }}
+              >
                 <h3>{category.title}</h3>
               </div>
             ))
@@ -94,16 +92,24 @@ const Themes = () => {
       <Footer />
 
       {isModalOpen && (
-        <div className="modal">
+        <div className="modal" style={{ padding: "20px", border: "1px solid #ccc", background: "#fff" }}>
           <h1>Ajouter une catégorie</h1>
           <button className="closeModal" onClick={() => setIsModalOpen(false)}>✖ Fermer</button>
           <div>
             <p>Titre :</p>
-            <input type="text" className="inputTitre" onChange={handleTitleChange} />
+            <input type="text" className="inputTitre" value={newTitle} onChange={handleTitleChange} />
           </div>
           <div>
-            <p>Image de fond :</p>
-            <input type="file" className="inputImage" onChange={handleImageChange} />
+            <p>Choisissez une couleur :</p>
+            <div style={{ display: "flex", gap: "10px", margin: "10px 0" }}>
+              <button className="buttonBleu" style={{ backgroundColor: "blue", width: "40px", height: "40px" }} onClick={() => handleColorSelect("blue")}></button>
+              <button className="buttonJaune" style={{ backgroundColor: "yellow", width: "40px", height: "40px" }} onClick={() => handleColorSelect("yellow")}></button>
+              <button className="buttonVert" style={{ backgroundColor: "green", width: "40px", height: "40px" }} onClick={() => handleColorSelect("green")}></button>
+              <button className="buttonRose" style={{ backgroundColor: "pink", width: "40px", height: "40px" }} onClick={() => handleColorSelect("pink")}></button>
+              <button className="buttonNoir" style={{ backgroundColor: "black", width: "40px", height: "40px", color: "white" }} onClick={() => handleColorSelect("black")}></button>
+              <button className="buttonBlanc" style={{ backgroundColor: "white", width: "40px", height: "40px", border: "1px solid black" }} onClick={() => handleColorSelect("white")}></button>
+              <button className="buttonRouge" style={{ backgroundColor: "red", width: "40px", height: "40px" }} onClick={() => handleColorSelect("red")}></button>
+            </div>
           </div>
           <button onClick={addCategoryFromModal}>Ajouter</button>
         </div>
