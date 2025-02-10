@@ -1,56 +1,86 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
-import Footer from "../components/Footer.tsx";
 
 const Themes = () => {
-  const [categories, setCategories] = useState<{ title: string; color: string; originalCat: boolean }[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newTitle, setNewTitle] = useState("");
-  const [newColor, setNewColor] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  // Fonction pour récupérer les catégories depuis localStorage
-  const loadCategories = () => {
+  // ✅ Liste des catégories originales
+  const originalCategories = [
+    { title: "Anglais", color: "blue", originalCat: true },
+    { title: "Histoire", color: "brown", originalCat: true },
+    { title: "Programmation", color: "purple", originalCat: true },
+    { title: "Géographie", color: "green", originalCat: true },
+    { title: "Mathématiques", color: "orange", originalCat: true },
+    { title: "Français", color: "red", originalCat: true },
+    { title: "Marketing", color: "yellow", originalCat: true },
+    { title: "Luxe", color: "gold", originalCat: true },
+    { title: "Ecologie", color: "lightgreen", originalCat: true },
+    { title: "Politique", color: "gray", originalCat: true },
+  ];
+
+  // ✅ Récupérer les catégories créées par l'utilisateur depuis localStorage
+  const [userCategories, setUserCategories] = useState([]);
+  useEffect(() => {
     const storedCategories = localStorage.getItem("categories");
     if (storedCategories) {
       try {
         const parsedCategories = JSON.parse(storedCategories);
         if (Array.isArray(parsedCategories)) {
-          setCategories(parsedCategories);
-        } else {
-          console.error("Format incorrect des catégories dans localStorage");
-          setCategories([]);
+          setUserCategories(parsedCategories);
         }
       } catch (error) {
         console.error("Erreur de parsing du localStorage:", error);
-        setCategories([]);
       }
+    }
+  }, []);
+
+
+  const [categoryToDelete, setCategoryToDelete] = useState(null);
+
+  const confirmDeleteCategory = (category) => {
+    setCategoryToDelete(category);
+  };
+
+  const deleteCategory = () => {
+    if (categoryToDelete) {
+      const updatedCategories = userCategories.filter(cat => cat.title !== categoryToDelete.title);
+      setUserCategories(updatedCategories);
+      localStorage.setItem("categories", JSON.stringify(updatedCategories));
+      setCategoryToDelete(null);
     }
   };
 
-  // Chargement des catégories au montage du composant
-  useEffect(() => {
-    loadCategories();
-  }, []);
 
-  // Gérer le changement de titre
+  // ✅ Gestion du filtre de catégories
+  const [filter, setFilter] = useState("all");
+
+  // 🔥 Filtrer les catégories affichées
+  const getFilteredCategories = () => {
+    if (filter === "original") return originalCategories;
+    if (filter === "created") return userCategories;
+    return [...originalCategories, ...userCategories];
+  };
+
+  // ✅ Gestion du modal pour ajouter une catégorie
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newTitle, setNewTitle] = useState("");
+  const [newColor, setNewColor] = useState<string | null>(null);
+
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewTitle(event.target.value);
   };
 
-  // Gérer la sélection de couleur
   const handleColorSelect = (color: string) => {
     setNewColor(color);
   };
 
-  // Ajouter une nouvelle catégorie avec la couleur sélectionnée
   const addCategoryFromModal = () => {
     if (newTitle && newColor) {
       const newCategory = { title: newTitle, color: newColor, originalCat: false };
-      const updatedCategories = [...categories, newCategory];
-
-      setCategories(updatedCategories);
+      const updatedCategories = [...userCategories, newCategory];
+      setUserCategories(updatedCategories);
       localStorage.setItem("categories", JSON.stringify(updatedCategories));
-
       setNewTitle("");
       setNewColor(null);
       setIsModalOpen(false);
@@ -59,59 +89,87 @@ const Themes = () => {
     }
   };
 
-  // Réinitialiser les catégories
-  const resetCategories = () => {
-    localStorage.removeItem("categories");
-    loadCategories();
-  };
-
   return (
     <div>
       <Navbar />
       <main>
-        <h2>Catégories</h2>
-        <div className="cat">
-          {categories.length > 0 ? (
-            categories.map((category, index) => (
-              <div 
-                key={index} 
-                className="CarteCat" 
-                style={{ backgroundColor: category.color, padding: "20px", borderRadius: "10px", margin: "10px" }}
+        <h1 style={{ textAlign: "center" }}>Catégories</h1>
+
+        {/* 🔥 Sélecteur pour filtrer les catégories */}
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+          <label htmlFor="categoryFilter">Filtrer :</label>
+          <select 
+            id="categoryFilter" 
+            value={filter} 
+            onChange={(e) => setFilter(e.target.value)} 
+            style={{ marginLeft: "10px", padding: "5px" }}
+          >
+            <option value="all">Toutes les catégories</option>
+            <option value="original">Catégories originales</option>
+            <option value="created">Catégories créées</option>
+          </select>
+        </div>
+
+        {/* 🔥 Affichage des catégories filtrées */}
+        <div className="cat" style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap", padding: "20px" }}>
+          {getFilteredCategories().length > 0 ? (
+            getFilteredCategories().map((category, index) => (
+              <div
+                key={index}
+                className="CarteCat"
+                style={{ backgroundColor: category.color, cursor: "pointer", padding: "20px", borderRadius: "10px", margin: "10px" }}
+                onClick={() => navigate(`/themes/${category.title}`)}
               >
                 <h3>{category.title}</h3>
+                {/* 🔥 Bouton suppression pour les catégories créées */}
+                 {/* 🔥 Bouton suppression pour les catégories créées */}
+                 {!category.originalCat && (
+                  <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCategory(category); }}>❌</button>
+                )}
               </div>
             ))
           ) : (
             <p>Aucune catégorie disponible.</p>
           )}
         </div>
-        <button className="buttonCreate" onClick={() => setIsModalOpen(true)}>Créer une catégorie</button>
-        <button onClick={resetCategories}>Réinitialiser les catégories</button>
+
+        {/* 🔥 Bouton pour ouvrir le modal */}
+        <button className="buttonCreate" onClick={() => setIsModalOpen(true)} style={{ display: "block", margin: "20px auto", padding: "10px 20px", fontSize: "16px" }}>Créer une catégorie</button>
       </main>
 
-      <Footer />
+      {categoryToDelete && (
+        <div className="containerModal">
+          <div className="modal">
+            <h2>Supprimer {categoryToDelete.title} ?</h2>
+            <p>Êtes-vous sûr de vouloir supprimer cette catégorie ? Cette action est irréversible.</p>
+            <button className="confirmDelete" onClick={deleteCategory}>Oui, supprimer</button>
+            <button className="cancelDelete" onClick={() => setCategoryToDelete(null)}>Annuler</button>
+          </div>
+        </div>
+      )}
 
+      {/* 🔥 Modal pour créer une nouvelle catégorie */}
       {isModalOpen && (
-        <div className="modal" style={{ padding: "20px", border: "1px solid #ccc", background: "#fff" }}>
-          <h1>Ajouter une catégorie</h1>
-          <button className="closeModal" onClick={() => setIsModalOpen(false)}>✖ Fermer</button>
-          <div>
-            <p>Titre :</p>
-            <input type="text" className="inputTitre" value={newTitle} onChange={handleTitleChange} />
-          </div>
-          <div>
-            <p>Choisissez une couleur :</p>
-            <div style={{ display: "flex", gap: "10px", margin: "10px 0" }}>
-              <button className="buttonBleu" style={{ backgroundColor: "blue", width: "40px", height: "40px" }} onClick={() => handleColorSelect("blue")}></button>
-              <button className="buttonJaune" style={{ backgroundColor: "yellow", width: "40px", height: "40px" }} onClick={() => handleColorSelect("yellow")}></button>
-              <button className="buttonVert" style={{ backgroundColor: "green", width: "40px", height: "40px" }} onClick={() => handleColorSelect("green")}></button>
-              <button className="buttonRose" style={{ backgroundColor: "pink", width: "40px", height: "40px" }} onClick={() => handleColorSelect("pink")}></button>
-              <button className="buttonNoir" style={{ backgroundColor: "black", width: "40px", height: "40px", color: "white" }} onClick={() => handleColorSelect("black")}></button>
-              <button className="buttonBlanc" style={{ backgroundColor: "white", width: "40px", height: "40px", border: "1px solid black" }} onClick={() => handleColorSelect("white")}></button>
-              <button className="buttonRouge" style={{ backgroundColor: "red", width: "40px", height: "40px" }} onClick={() => handleColorSelect("red")}></button>
+        <div className="containerModal">
+          <div className="modal">
+            <h1>Ajouter une catégorie</h1>
+            <button className="closeModal" onClick={() => setIsModalOpen(false)}>✖</button>
+            <input type="text" placeholder="Titre" value={newTitle} onChange={handleTitleChange} className="inputTitre"/>
+            <div className="formulaireCouleurModal">
+              <p>Choisissez une couleur :</p>
+              <div>
+                <button onClick={() => handleColorSelect("blue")} style={{ backgroundColor: "blue" }}></button>
+                <button onClick={() => handleColorSelect("yellow")} style={{ backgroundColor: "yellow" }}></button>
+                <button onClick={() => handleColorSelect("green")} style={{ backgroundColor: "green" }}></button>
+                <button onClick={() => handleColorSelect("red")} style={{ backgroundColor: "red" }}></button>
+                <button onClick={() => handleColorSelect("pink")} style={{ backgroundColor: "pink" }}></button>
+                <button onClick={() => handleColorSelect("black")} style={{ backgroundColor: "black" }}></button>
+                <button onClick={() => handleColorSelect("white")} style={{ backgroundColor: "white" }}></button>
+                <button onClick={() => handleColorSelect("grey")} style={{ backgroundColor: "grey" }}></button>
+              </div>
             </div>
+            <button onClick={addCategoryFromModal} style={{ width: "10vw" }}>Ajouter</button>
           </div>
-          <button onClick={addCategoryFromModal}>Ajouter</button>
         </div>
       )}
     </div>

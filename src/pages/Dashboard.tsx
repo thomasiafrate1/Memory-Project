@@ -1,50 +1,48 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../components/Navbar.tsx";
-import Footer from "../components/Footer.tsx";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
-  const [categories] = useState<{ title: string; image: string; originalCat: boolean }[]>([
-    { title: "Anglais", image: "/anglais.jpg", originalCat: true },
-    { title: "Histoire", image: "/histoire.jpg", originalCat: true },
-    { title: "Programmation", image: "/programmation.jpg", originalCat: true },
-    { title: "Géographie", image: "/geographie.jpg", originalCat: true },
-    { title: "Mathématiques", image: "/mathematiques.jpg", originalCat: true },
-    { title: "Français", image: "/francais.jpg", originalCat: true },
-    { title: "Marketing", image: "/marketing.jpg", originalCat: true },
-    { title: "Luxe", image: "/luxe.jpg", originalCat: true },
-    { title: "Ecologie", image: "/ecologie.jpg", originalCat: true },
-    { title: "Politique", image: "/politique.jpg", originalCat: true },
-  ]);
-  
-  
   return (
     <div>
       <Navbar />
-      <main>
-        <div className="catGeneral">
-          <h2>Catégories</h2>
-          <div className="cat">
-            {categories.map((category, index) => (
-              <div key={index} className="CarteCat" style={{ backgroundImage: `url(${category.image})` }}>
-                <div className="titrebouton">
-                  <h3>{category.title}</h3>
-                  <button><Link to="/themes">Aller</Link></button>
-                </div>
-              </div>
-            ))}
+      <main className="dashboard-container">
+        {/* ✅ SECTION HERO (Accueil) */}
+        <section className="hero-section">
+          <div className="hero-content">
+            <h1>Memory App : Améliorez votre apprentissage 📚</h1>
+            <p>Révisez intelligemment avec la répétition espacée et des cartes mémoire interactives.</p>
+            <button className="cta-button">
+              <Link to="/themes">Commencer</Link>
+            </button>
           </div>
-        </div>
+          <div className="hero-image">
+            <img src="/brain.jpg" alt="Apprentissage interactif" />
+          </div>
+        </section>
 
-        <div className="Stats">
-          <h2>Statistiques</h2>
-          <p>Cartes révisées aujourd'hui : 5</p>
-          <p>Niveau atteint : 2</p>
-          <h2>Rappel quotidien</h2>
-          <p>Prochaine révision : 18:00</p>
-        </div>
+        {/* ✅ SECTION AVANTAGES */}
+        <section className="features-section">
+          <h2>Pourquoi utiliser Memory App ?</h2>
+          <div className="features-container">
+            <div className="feature-card">
+              <img src="/flashcard.png" alt="Cartes interactives" />
+              <h3>Cartes Mémoire</h3>
+              <p>Créez, révisez et personnalisez vos cartes pour une meilleure rétention.</p>
+            </div>
+            <div className="feature-card">
+              <img src="/spaced-repetition.png" alt="Répétition espacée" />
+              <h3>Répétition Espacée</h3>
+              <p>Boostez votre mémoire en révisant aux bons moments.</p>
+            </div>
+            <div className="feature-card">
+              <img src="/stats.png" alt="Suivi des performances" />
+              <h3>Suivi des progrès</h3>
+              <p>Analysez vos performances pour optimiser votre apprentissage.</p>
+            </div>
+          </div>
+        </section>
       </main>
-      <Footer />
     </div>
   );
 };
