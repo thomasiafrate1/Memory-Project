@@ -37,11 +37,11 @@ const NotificationPage = () => {
         {dueCards.length > 0 ? (
           dueCards.map((card, index) => (
             <div key={index} className="notification-card">
-              <div className="icon">📖</div>
+              <div className="icon">0</div>
               <div className="notification-content">
                 <h3>{card.question}</h3>
                 <p>Révision prévue aujourd'hui</p>
-                <span className="time">📅 Niveau : {card.level}</span>
+                <span className="time">Niveau : {card.level}</span>
               </div>
             </div>
           ))

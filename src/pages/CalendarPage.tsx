@@ -22,18 +22,18 @@ const CalendarPage = () => {
       <Navbar />
       <div className="calendar-container">
       <div className="calendar-header">
-        <h1>📅 Calendrier des révisions</h1>
+        <h1>Calendrier des révisions</h1>
       </div>
 
       <div className="calendar-list">
         {events.length > 0 ? (
           events.map((event, index) => (
             <div key={index} className="calendar-card">
-              <div className="icon">📝</div>
+              <div className="icon">0</div>
               <div className="calendar-content">
                 <h3>{event.theme} - {event.question}</h3>
-                <p>📅 Révision prévue le <strong>{new Date(event.nextReview).toLocaleDateString()}</strong></p>
-                <span className="level">📊 Niveau : {event.level + 1}</span>
+                <p>Prochaine révision : <strong>{new Date(event.nextReview).toLocaleDateString()}</strong></p>
+                <span className="level">Niveau : {event.level + 1}</span>
               </div>
             </div>
           ))

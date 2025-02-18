@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
 
 const CardThemePage = () => {
-  const { themeName } = useParams<{ themeName: string }>(); // 🔥 Récupération du nom du thème depuis l'URL
+  const { themeName } = useParams<{ themeName: string }>();
   const [cards, setCards] = useState<{ title: string; color: string; theme: string }[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newCardTitle, setNewCardTitle] = useState("");
@@ -12,7 +12,6 @@ const CardThemePage = () => {
   const [cardToDelete, setCardToDelete] = useState<{ title: string; color: string; theme: string } | null>(null);
   const navigate = useNavigate();
 
-  // ✅ Charger les cartes depuis localStorage
   useEffect(() => {
     if (themeName) {
       const storedCards = localStorage.getItem("cards");
@@ -29,7 +28,6 @@ const CardThemePage = () => {
     }
   }, [themeName]);
 
-  // ✅ Ajouter une carte
   const addCard = () => {
     if (!newCardTitle || !newCardColor) {
       alert("Veuillez entrer un titre et choisir une couleur !");
@@ -46,7 +44,6 @@ const CardThemePage = () => {
     setIsModalOpen(false);
   };
 
-  // ✅ Supprimer une carte
   const confirmDeleteCard = (card) => {
     setCardToDelete(card);
   };
@@ -63,7 +60,7 @@ const CardThemePage = () => {
   return (
     <div>
       <Navbar />
-      <h1 style={{ textAlign: "center" }}>{themeName}</h1> {/* 🔥 Affiche le titre du thème */}
+      <h1 style={{ textAlign: "center" }}>{themeName}</h1>
       <div style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap", padding: "20px" }}>
         {cards.length > 0 ? (
           cards.map((card, index) => (
@@ -78,7 +75,7 @@ const CardThemePage = () => {
                 display: "flex", 
                 alignItems: "center", 
                 justifyContent: "center",
-                color: card.color === "black" ? "white" : "black", // Ajuste le texte pour les fonds sombres
+                color: card.color === "black" ? "white" : "black",
                 fontWeight: "bold",
                 fontSize: "18px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
@@ -89,12 +86,11 @@ const CardThemePage = () => {
             >
               {card.title}
               
-              {/* ❌ Bouton de suppression */}
               <button 
                 className="deleteButton" 
                 onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}
               >
-                ❌
+                X
               </button>
             </div>
           ))
@@ -112,7 +108,6 @@ const CardThemePage = () => {
 
       <Footer />
 
-      {/* 🔥 Modal pour ajouter une carte */}
       {isModalOpen && (
         <div className="modal">
           <h1>Ajouter une carte</h1>
@@ -144,7 +139,6 @@ const CardThemePage = () => {
         </div>
       )}
 
-      {/* 🔥 Popup de confirmation pour suppression */}
       {cardToDelete && (
         <div className="containerModal">
           <div className="modal">

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
 
-const INTERVALS = [1, 3, 7, 15, 30]; // Jours de révision espacée
+const INTERVALS = [1, 3, 7, 15, 30];
 
 const QuestionAnswerPage = () => {
   const { themeName, questionanswerName } = useParams<{ themeName: string; questionanswerName: string }>();
@@ -11,8 +11,6 @@ const QuestionAnswerPage = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [selectedCard, setSelectedCard] = useState<{ question: string; answer: string; color: string; level: number; nextReview: string } | null>(null);
   const [cardToDelete, setCardToDelete] = useState<{ question: string } | null>(null);
-  
-  // États pour créer une nouvelle carte
   const [newQuestion, setNewQuestion] = useState("");
   const [newAnswer, setNewAnswer] = useState("");
   const [newCardColor, setNewCardColor] = useState<string | null>(null);
@@ -35,7 +33,6 @@ const QuestionAnswerPage = () => {
     }
   }, [questionanswerName]);
 
-  // 📌 Ouvrir le modal de création
   const openCreateModal = () => {
     setIsModalOpen(true);
     setNewQuestion("");
@@ -43,21 +40,20 @@ const QuestionAnswerPage = () => {
     setNewCardColor(null);
   };
 
-  // 📌 Ajouter une carte avec question/réponse et répétition espacée
   const addCard = () => {
     if (!newQuestion || !newAnswer || !newCardColor) {
       alert("Veuillez entrer une question, une réponse et choisir une couleur !");
       return;
     }
     const nextReviewDate = new Date();
-    nextReviewDate.setDate(nextReviewDate.getDate() + INTERVALS[0]); // Première révision dans 1 jour
+    nextReviewDate.setDate(nextReviewDate.getDate() + INTERVALS[0]);
 
     const newSubCard = {
       question: newQuestion,
       answer: newAnswer,
       color: newCardColor,
       parent: questionanswerName,
-      level: 0, // Commence au niveau 0
+      level: 0, 
       nextReview: nextReviewDate.toISOString()
     };
 
@@ -69,7 +65,6 @@ const QuestionAnswerPage = () => {
     setIsModalOpen(false);
   };
 
-  // 📌 Supprimer une carte
   const confirmDeleteCard = (card) => {
     setCardToDelete(card);
   };
@@ -83,18 +78,15 @@ const QuestionAnswerPage = () => {
     }
   };
 
-  // 📌 Ouvrir une carte en grand avec possibilité de la retourner
   const openCardModal = (card) => {
     setSelectedCard(card);
     setIsFlipped(false);
   };
 
-  // 📌 Fermer le modal d'affichage
   const closeModal = () => {
     setSelectedCard(null);
   };
 
-  // 📌 Marquer une carte comme révisée
   const markAsReviewed = () => {
     if (!selectedCard) return;
   

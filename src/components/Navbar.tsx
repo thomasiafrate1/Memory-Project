@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../App.css"; // Ajout du fichier CSS pour la navbar
+import "../App.css";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,15 +8,11 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <h1 className="navbar-logo">Memory App</h1>
-      
-      {/* Bouton Hamburger */}
       <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
         <div className={isOpen ? "bar open" : "bar"}></div>
         <div className={isOpen ? "bar open" : "bar"}></div>
         <div className={isOpen ? "bar open" : "bar"}></div>
       </div>
-
-      {/* Menu Principal */}
       <ul className={`nav-links ${isOpen ? "open" : ""}`}>
         <li><Link to="/" onClick={() => setIsOpen(false)}>Accueil</Link></li>
         <li><Link to="/themes" onClick={() => setIsOpen(false)}>Mes Catégories</Link></li>

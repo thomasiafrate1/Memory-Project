@@ -110,13 +110,6 @@ main{
 }
 
 
-.catGeneral{
-  flex: 1;
-}
-
-.catGeneral h2{
-  color: #e0e0e0;
-}
 
 .cat{ 
   display: grid;
@@ -128,19 +121,6 @@ main{
   margin-top: 20px;
 }
 
-.Stats{
-  margin-right: -30px;
-  width: 300px;
-  padding: 10px;
-  background-color: #1e1e1e;
-  color: #e0e0e0;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-.Stats p {
-  color: #b0b0b0;
-}
 
 
 .CarteCat{
@@ -688,42 +668,6 @@ button:hover {
   height: 40px;
 }
 
-
-.buttonBleu{
-  background-color: blue;
-  border: 1px black solid;
-}
-
-.buttonVert{
-  background-color: green;
-  border: 1px black solid;
-}
-
-.buttonJaune{
-  background-color: yellow;
-  border: 1px black solid;
-}
-
-.buttonRose{
-  background-color: pink;
-  border: 1px black solid;
-}
-
-.buttonNoir{
-  background-color: black;
-  border: 1px black solid;
-}
-
-
-.buttonBlanc{
-  background-color: white;
-  border: 1px black solid;
-}
-
-.buttonRouge{
-  background-color: red;
-  border: 1px black solid;
-}
 
 .calendarContainer{
   display: flex;

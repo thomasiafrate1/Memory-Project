@@ -7,10 +7,9 @@ const Dashboard = () => {
     <div>
       <Navbar />
       <main className="dashboard-container">
-        {/* ✅ SECTION HERO (Accueil) */}
         <section className="hero-section">
           <div className="hero-content">
-            <h1>Memory App : Améliorez votre apprentissage 📚</h1>
+            <h1>Memory App : Améliorez votre apprentissage</h1>
             <p>Révisez intelligemment avec la répétition espacée et des cartes mémoire interactives.</p>
             <button className="cta-button">
               <Link to="/themes">Commencer</Link>
@@ -21,7 +20,6 @@ const Dashboard = () => {
           </div>
         </section>
 
-        {/* ✅ SECTION AVANTAGES */}
         <section className="features-section">
           <h2>Pourquoi utiliser Memory App ?</h2>
           <div className="features-container">
