@@ -119,6 +119,10 @@ main{
 
 .buttonCreate{
   margin-top: 20px;
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
 }
 
 
@@ -482,6 +486,17 @@ button:hover {
 
 .card{
   font-weight: bold;
+  width: 150px;
+  height: 200px; 
+  border-radius: 10px; 
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  cursor: pointer
 }
 
 /* ✅ CONTAINER PRINCIPAL */

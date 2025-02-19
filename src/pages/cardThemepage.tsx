@@ -69,18 +69,6 @@ const CardThemePage = () => {
               className="card" 
               style={{ 
                 backgroundColor: card.color, 
-                width: "150px", 
-                height: "200px", 
-                borderRadius: "10px", 
-                display: "flex", 
-                alignItems: "center", 
-                justifyContent: "center",
-                color: card.color === "black" ? "white" : "black",
-                fontWeight: "bold",
-                fontSize: "18px",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
-                position: "relative",
-                cursor: "pointer"
               }}
               onClick={() => navigate(`${window.location.pathname}/${card.title}`)}
             >
@@ -98,11 +86,7 @@ const CardThemePage = () => {
           <p style={{ textAlign: "center", width: "100%" }}>Aucune carte disponible pour ce thème.</p>
         )}
       </div>
-      <button 
-        className="buttonCreate" 
-        onClick={() => setIsModalOpen(true)} 
-        style={{ display: "block", margin: "20px auto", padding: "10px 20px", fontSize: "16px" }}
-      >
+      <button className="buttonCreate" onClick={() => setIsModalOpen(true)}>
         Ajouter une carte
       </button>
 
@@ -114,13 +98,7 @@ const CardThemePage = () => {
           <button className="closeModal" onClick={() => setIsModalOpen(false)}>✖</button>
           <div className="formulaireModal">
             <div>
-              <input 
-                type="text" 
-                placeholder="Titre" 
-                className="inputTitre" 
-                value={newCardTitle} 
-                onChange={(e) => setNewCardTitle(e.target.value)} 
-              />
+              <input type="text" placeholder="Titre" className="inputTitre" value={newCardTitle} onChange={(e) => setNewCardTitle(e.target.value)}/>
             </div>
             <div className="formulaireCouleurModal">
               <p>Choisissez une couleur :</p>

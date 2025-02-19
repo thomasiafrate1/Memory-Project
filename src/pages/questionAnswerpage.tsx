@@ -42,7 +42,7 @@ const QuestionAnswerPage = () => {
 
   const addCard = () => {
     if (!newQuestion || !newAnswer || !newCardColor) {
-      alert("Veuillez entrer une question, une réponse et choisir une couleur !");
+      alert("Faut entrer une question, une réponse et choisir une couleur !");
       return;
     }
     const nextReviewDate = new Date();
@@ -102,11 +102,9 @@ const QuestionAnswerPage = () => {
   
     setSubCards(updatedCards);
   
-    // 🔥 1️⃣ Charger les cartes déjà enregistrées dans le calendrier
     const storedCalendarData = localStorage.getItem("calendarData");
     let calendarEvents = storedCalendarData ? JSON.parse(storedCalendarData) : [];
   
-    // 🔥 2️⃣ Vérifier si la carte est déjà présente et la mettre à jour
     const existingCardIndex = calendarEvents.findIndex(event => event.question === selectedCard.question);
     if (existingCardIndex !== -1) {
       calendarEvents[existingCardIndex] = { 
@@ -115,16 +113,14 @@ const QuestionAnswerPage = () => {
         nextReview: nextReviewDate.toISOString() 
       };
     } else {
-      // 🔥 3️⃣ Ajouter la carte avec sa prochaine révision
       calendarEvents.push({
         question: selectedCard.question,
-        theme: selectedCard.parent, // Associe la catégorie
+        theme: selectedCard.parent,
         level: newLevel,
         nextReview: nextReviewDate.toISOString(),
       });
     }
-  
-    // 🔥 4️⃣ Sauvegarder toutes les cartes révisées dans localStorage
+
     localStorage.setItem("calendarData", JSON.stringify(calendarEvents));
   
     closeModal();
@@ -136,8 +132,6 @@ const QuestionAnswerPage = () => {
       <Navbar />
       <h1>{questionanswerName}</h1>
       <p>Page de révision de "{questionanswerName}" dans le thème "{themeName}".</p>
-
-      {/* Liste des cartes */}
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "20px" }}>
         {subCards.length > 0 ? (
           subCards.map((card, index) => (
@@ -145,22 +139,11 @@ const QuestionAnswerPage = () => {
               key={index}
               className="card"
               style={{
-                backgroundColor: card.color,
-                width: "150px",
-                height: "200px",
-                borderRadius: "10px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "18px",
-                cursor: "pointer",
-                position: "relative"
+                backgroundColor: card.color
               }}
               onClick={() => openCardModal(card)}
             >
               {card.question}
-
-              {/* ❌ Bouton de suppression */}
               <button 
                 className="deleteButton" 
                 onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}
@@ -174,10 +157,8 @@ const QuestionAnswerPage = () => {
         )}
       </div>
 
-      {/* Bouton pour créer une nouvelle carte */}
       <button className="buttonCreate" onClick={openCreateModal}>Créer une carte</button>
 
-      {/* 🔥 Popup de confirmation pour suppression */}
       {cardToDelete && (
         <div className="modal-overlay">
           <div className="modal">
@@ -189,7 +170,6 @@ const QuestionAnswerPage = () => {
         </div>
       )}
 
-            {/* Modal d'affichage d'une carte */}
             {selectedCard && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
@@ -203,13 +183,12 @@ const QuestionAnswerPage = () => {
                 </div>
               </div>
             </div>
-            <button onClick={markAsReviewed}>✅ Révisée</button>
+            <button onClick={markAsReviewed}>Révisée</button>
             <button className="closeModal" onClick={closeModal}>✖</button>
           </div>
         </div>
       )}
 
-      {/* Modal de création d'une nouvelle carte */}
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal">
