@@ -444,6 +444,25 @@ button:hover {
 }
 
 
+.titleTheme{
+  text-align: center;
+}
+
+.cardTheme{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.containerQuestionAnswerTheme{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+  gap: 20px;
+}
+
 .formulaireModal{
   display: flex;
   flex-direction: column;

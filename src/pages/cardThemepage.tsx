@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
+import { defaultThemes } from "../store/defaultData.ts";
+
 
 const CardThemePage = () => {
   const { themeName } = useParams<{ themeName: string }>();
@@ -14,19 +16,23 @@ const CardThemePage = () => {
 
   useEffect(() => {
     if (themeName) {
-      const storedCards = localStorage.getItem("cards");
-      if (storedCards) {
+      const storedThemes = localStorage.getItem("themes");
+      let userThemes = [];
+  
+      if (storedThemes) {
         try {
-          const parsedCards = JSON.parse(storedCards);
-          const filteredCards = parsedCards.filter((card: { theme: string }) => card.theme === themeName);
-          setCards(filteredCards);
+          userThemes = JSON.parse(storedThemes).filter((theme) => theme.theme === themeName);
         } catch (error) {
           console.error("Erreur de parsing du localStorage:", error);
-          setCards([]);
         }
       }
+  
+      // Vérifier si la catégorie a des Thèmes par défaut
+      const defaultThemeList = defaultThemes[themeName] || [];
+      setCards([...defaultThemeList, ...userThemes]); 
     }
   }, [themeName]);
+  
 
   const addCard = () => {
     if (!newCardTitle || !newCardColor) {
@@ -60,36 +66,20 @@ const CardThemePage = () => {
   return (
     <div>
       <Navbar />
-      <h1 style={{ textAlign: "center" }}>{themeName}</h1>
-      <div style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap", padding: "20px" }}>
+      <h1 className="titleTheme">{themeName}</h1>
+      <div className="cardTheme">
         {cards.length > 0 ? (
           cards.map((card, index) => (
-            <div 
-              key={index} 
-              className="card" 
-              style={{ 
-                backgroundColor: card.color, 
-              }}
-              onClick={() => navigate(`${window.location.pathname}/${card.title}`)}
-            >
+            <div key={index} className="card" style={{ backgroundColor: card.color }} onClick={() => navigate(`${window.location.pathname}/${card.title}`)}>
               {card.title}
-              
-              <button 
-                className="deleteButton" 
-                onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}
-              >
-                X
-              </button>
+              <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}> X </button>
             </div>
           ))
         ) : (
           <p style={{ textAlign: "center", width: "100%" }}>Aucune carte disponible pour ce thème.</p>
         )}
       </div>
-      <button className="buttonCreate" onClick={() => setIsModalOpen(true)}>
-        Ajouter une carte
-      </button>
-
+      <button className="buttonCreate" onClick={() => setIsModalOpen(true)}>Ajouter une carte</button>
       <Footer />
 
       {isModalOpen && (

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
+import {defaultQuestions} from "../store/defaultData.ts";
 
 const INTERVALS = [1, 3, 7, 15, 30];
 
@@ -18,20 +19,24 @@ const QuestionAnswerPage = () => {
   useEffect(() => {
     if (questionanswerName) {
       const storedSubCards = localStorage.getItem("subCards");
+      let userSubCards = [];
+  
       if (storedSubCards) {
         try {
-          const parsedSubCards = JSON.parse(storedSubCards);
-          const filteredSubCards = parsedSubCards.filter(
-            (card: { parent: string }) => card.parent === questionanswerName
+          userSubCards = JSON.parse(storedSubCards).filter(
+            (card) => card.parent === questionanswerName
           );
-          setSubCards(filteredSubCards);
         } catch (error) {
           console.error("Erreur de parsing du localStorage:", error);
-          setSubCards([]);
         }
       }
+  
+      // Ajouter les cartes par défaut
+      const defaultSubCards = defaultQuestions[questionanswerName] || [];
+      setSubCards([...defaultSubCards, ...userSubCards]); 
     }
   }, [questionanswerName]);
+  
 
   const openCreateModal = () => {
     setIsModalOpen(true);
@@ -132,22 +137,12 @@ const QuestionAnswerPage = () => {
       <Navbar />
       <h1>{questionanswerName}</h1>
       <p>Page de révision de "{questionanswerName}" dans le thème "{themeName}".</p>
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "20px" }}>
+      <div className="containerQuestionAnswerTheme">
         {subCards.length > 0 ? (
           subCards.map((card, index) => (
-            <div
-              key={index}
-              className="card"
-              style={{
-                backgroundColor: card.color
-              }}
-              onClick={() => openCardModal(card)}
-            >
+            <div key={index} className="card" style={{backgroundColor: card.color}} onClick={() => openCardModal(card)}>
               {card.question}
-              <button 
-                className="deleteButton" 
-                onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}
-              >
+              <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}>
                 ❌
               </button>
             </div>

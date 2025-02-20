@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
 
+
+
 const Themes = () => {
   const navigate = useNavigate();
 
@@ -17,6 +19,7 @@ const Themes = () => {
     { title: "Ecologie", color: "lightgreen", originalCat: true },
     { title: "Politique", color: "gray", originalCat: true },
   ];
+
 
   const [userCategories, setUserCategories] = useState([]);
   useEffect(() => {
