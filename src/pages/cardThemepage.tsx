@@ -81,7 +81,6 @@ const CardThemePage = () => {
       </div>
       <button className="buttonCreate" onClick={() => setIsModalOpen(true)}>Ajouter une carte</button>
       <Footer />
-
       {isModalOpen && (
         <div className="modal">
           <h1>Ajouter une carte</h1>

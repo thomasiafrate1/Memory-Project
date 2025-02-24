@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
+import "../styles/navbar.css";
+import "../styles/dashboard.css";
+import "../styles/categories.css";
+import "../styles/themes.css";
+import "../styles/card.css";
+import "../styles/base.css";
+import "../styles/calendar.css";
+import "../styles/modals.css";
+import "../styles/notifications.css";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  
   return (
     <nav className="navbar">
       <h1 className="navbar-logo">Memory App</h1>

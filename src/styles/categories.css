@@ -1,0 +1,62 @@
+
+.cat{ 
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    }
+    
+    .buttonCreate{
+    margin-top: 20px;
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    }
+    
+    
+    
+    .CarteCat{
+    margin-bottom: 50px;
+    display: flex;
+    width: 12vw;
+    min-width: 120px;
+    background-color: #333;
+    height: 30vh;
+    background-size: cover; /* Fait en sorte que l'image couvre toute la div */
+    background-position: center; /* Centre l'image */
+    background-repeat: no-repeat; /* Empêche la répétition */
+    border-radius: 10px; /* Optionnel : coins arrondis */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out;
+    padding: 20px;
+    margin: 10px;
+    position: relative;
+    }
+    
+    .CarteCat {
+    position: relative;
+    }
+    
+    .CarteCat:hover{
+        scale: 1.1;
+      }
+    
+    .deleteButton {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: red;
+        border: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 5px;
+      }
+      
+      .deleteButton:hover {
+        background-color: darkred;
+      }
+      

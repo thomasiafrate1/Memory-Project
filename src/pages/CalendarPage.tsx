@@ -16,7 +16,7 @@ const CalendarPage = () => {
       }
     }
   }, []);
-
+ //calendar-container calendar-header calendar-list calendar-card icon calendar-content level no-events
   return (
     <div>
       <Navbar />
@@ -24,7 +24,6 @@ const CalendarPage = () => {
       <div className="calendar-header">
         <h1>Calendrier des révisions</h1>
       </div>
-
       <div className="calendar-list">
         {events.length > 0 ? (
           events.map((event, index) => (

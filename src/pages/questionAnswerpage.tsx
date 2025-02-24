@@ -131,7 +131,6 @@ const QuestionAnswerPage = () => {
     closeModal();
   };
   
-
   return (
     <div>
       <Navbar />
@@ -164,7 +163,6 @@ const QuestionAnswerPage = () => {
           </div>
         </div>
       )}
-
             {selectedCard && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>

@@ -1,11 +1,12 @@
 import React from "react";
 import Navbar from "../components/Navbar.tsx";
 import { Link } from "react-router-dom";
+import "../App.css";
 
 const Dashboard = () => {
   return (
     <div>
-      <Navbar />
+      <Navbar/>
       <main className="dashboard-container">
         <section className="hero-section">
           <div className="hero-content">
@@ -16,7 +17,7 @@ const Dashboard = () => {
             </button>
           </div>
           <div className="hero-image">
-            <img src="/brain.jpg" alt="Apprentissage interactif" />
+            <img src="/brain.jpg" />
           </div>
         </section>
 
@@ -24,17 +25,17 @@ const Dashboard = () => {
           <h2>Pourquoi utiliser Memory App ?</h2>
           <div className="features-container">
             <div className="feature-card">
-              <img src="/flashcard.png" alt="Cartes interactives" />
+              <img src="/brain.jpg"/>
               <h3>Cartes Mémoire</h3>
               <p>Créez, révisez et personnalisez vos cartes pour une meilleure rétention.</p>
             </div>
             <div className="feature-card">
-              <img src="/spaced-repetition.png" alt="Répétition espacée" />
+              <img src="/brain.jpg" />
               <h3>Répétition Espacée</h3>
               <p>Boostez votre mémoire en révisant aux bons moments.</p>
             </div>
             <div className="feature-card">
-              <img src="/stats.png" alt="Suivi des performances" />
+              <img src="/brain.jpg"/>
               <h3>Suivi des progrès</h3>
               <p>Analysez vos performances pour optimiser votre apprentissage.</p>
             </div>

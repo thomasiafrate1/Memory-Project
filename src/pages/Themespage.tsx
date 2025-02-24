@@ -8,16 +8,16 @@ const Themes = () => {
   const navigate = useNavigate();
 
   const originalCategories = [
-    { title: "Anglais", color: "blue", originalCat: true },
-    { title: "Histoire", color: "brown", originalCat: true },
-    { title: "Programmation", color: "purple", originalCat: true },
-    { title: "Géographie", color: "green", originalCat: true },
-    { title: "Mathématiques", color: "orange", originalCat: true },
-    { title: "Français", color: "red", originalCat: true },
-    { title: "Marketing", color: "yellow", originalCat: true },
-    { title: "Luxe", color: "gold", originalCat: true },
-    { title: "Ecologie", color: "lightgreen", originalCat: true },
-    { title: "Politique", color: "gray", originalCat: true },
+    { title: "Anglais", color: "blue", originalCat: true, image: "/anglais.jpg" },
+    { title: "Histoire", color: "brown", originalCat: true, image: "/histoire.jpg"  },
+    { title: "Programmation", color: "purple", originalCat: true, image: "/programmation.jpg"  },
+    { title: "Géographie", color: "green", originalCat: true, image: "/geographie.jpg"  },
+    { title: "Mathématiques", color: "orange", originalCat: true, image: "/mathematiques.jpg"  },
+    { title: "Français", color: "red", originalCat: true, image: "/francais.jpg"  },
+    { title: "Marketing", color: "yellow", originalCat: true, image: "/marketing.jpg"  },
+    { title: "Luxe", color: "gold", originalCat: true, image: "/luxe.jpg"  },
+    { title: "Ecologie", color: "lightgreen", originalCat: true, image: "/ecologie.jpg"  },
+    { title: "Politique", color: "gray", originalCat: true, image: "/politique.jpg"  },
   ];
 
 
@@ -83,8 +83,7 @@ const Themes = () => {
       alert("Veuillez entrer un titre et choisir une couleur !");
     }
   };
-
-  return (
+  return ( 
     <div>
       <Navbar />
       <main>
@@ -108,7 +107,7 @@ const Themes = () => {
               <div
                 key={index}
                 className="CarteCat"
-                style={{ backgroundColor: category.color, cursor: "pointer", padding: "20px", borderRadius: "10px", margin: "10px" }}
+                style={{     backgroundColor: category.originalCat ? "transparent" : category.color, backgroundImage: category.originalCat ? `url(${category.image})` : "none", cursor: "pointer", padding: "20px", borderRadius: "10px", margin: "10px" }}
                 onClick={() => navigate(`/themes/${category.title}`)}
               >
                 <h3>{category.title}</h3>
