@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
-import {defaultQuestions} from "../store/defaultData.ts";
+import { defaultQuestions } from "../store/defaultData.ts";
 
 const INTERVALS = [1, 3, 7, 15, 30];
 
@@ -31,9 +31,16 @@ const CardPage = () => {
         }
       }
   
-      // Ajouter les cartes par défaut
       const defaultSubCards = defaultQuestions[questionanswerName] || [];
-      setSubCards([...defaultSubCards, ...userSubCards]); 
+  
+      // 🔥 Correction : Vérifier que chaque carte a bien level et nextReview
+      const fixedSubCards = [...defaultSubCards, ...userSubCards].map(card => ({
+        ...card,
+        level: card.level ?? 0, // Si level est manquant, on met 0
+        nextReview: card.nextReview ?? new Date().toISOString(), // Si nextReview est manquant, on met la date actuelle
+      }));
+  
+      setSubCards(fixedSubCards);
     }
   }, [questionanswerName]);
   
@@ -58,18 +65,17 @@ const CardPage = () => {
       answer: newAnswer,
       color: newCardColor,
       parent: questionanswerName,
-      level: 0, 
+      level: 0,
       nextReview: nextReviewDate.toISOString()
     };
 
     const updatedSubCards = [...subCards, newSubCard];
 
     setSubCards(updatedSubCards);
-    localStorage.setItem("subCards", JSON.stringify(updatedSubCards));
+    updateLocalStorage(updatedSubCards);
 
     setIsModalOpen(false);
   };
-
   const confirmDeleteCard = (card) => {
     setCardToDelete(card);
   };
@@ -78,7 +84,7 @@ const CardPage = () => {
     if (cardToDelete) {
       const updatedCards = subCards.filter(card => card.question !== cardToDelete.question);
       setSubCards(updatedCards);
-      localStorage.setItem("subCards", JSON.stringify(updatedCards));
+      updateLocalStorage(updatedCards);
       setCardToDelete(null);
     }
   };
@@ -93,44 +99,99 @@ const CardPage = () => {
   };
 
   const markAsReviewed = () => {
-    if (!selectedCard) return;
+    if (!selectedCard) {
+      console.error("ERREUR: selectedCard est null !");
+      return;
+    }
   
-    let newLevel = Math.min(selectedCard.level + 1, INTERVALS.length - 1);
+    console.log("🔍 Avant mise à jour - Carte sélectionnée :", selectedCard);
+  
+    setSubCards(prevCards => {
+      const updatedCards = prevCards.map(card => {
+        if (card.question === selectedCard.question) {
+          let currentLevel = card.level ?? 0;
+          let newLevel = Math.min(currentLevel + 1, INTERVALS.length - 1);
+  
+          console.log(`⬆️ Passage de niveau : ${currentLevel} ➡️ ${newLevel}`);
+  
+          let nextReviewDate = new Date();
+          nextReviewDate.setDate(nextReviewDate.getDate() + INTERVALS[newLevel]);
+  
+          console.log(`📅 Nouvelle date de révision : ${nextReviewDate.toISOString()}`);
+  
+          return { 
+            ...card, 
+            level: newLevel, 
+            nextReview: nextReviewDate.toISOString() 
+          };
+        }
+        return card;
+      });
+  
+      console.log("🔄 Mise à jour des cartes dans le state :", updatedCards);
+  
+      updateLocalStorage(updatedCards);
+      return updatedCards; // Mise à jour de l'état React
+    });
+  
+    closeModal();
+  };
+  
+  
+  
+  
+  
+  
+
+
+  const markAsFailed = () => {
+    if (!selectedCard) return;
+
+    let newLevel = 0; // Remet au niveau 0
     let nextReviewDate = new Date();
     nextReviewDate.setDate(nextReviewDate.getDate() + INTERVALS[newLevel]);
-  
+
     const updatedCards = subCards.map(card =>
       card.question === selectedCard.question
         ? { ...card, level: newLevel, nextReview: nextReviewDate.toISOString() }
         : card
     );
-  
-    setSubCards(updatedCards);
-  
-    const storedCalendarData = localStorage.getItem("calendarData");
-    let calendarEvents = storedCalendarData ? JSON.parse(storedCalendarData) : [];
-  
-    const existingCardIndex = calendarEvents.findIndex(event => event.question === selectedCard.question);
-    if (existingCardIndex !== -1) {
-      calendarEvents[existingCardIndex] = { 
-        ...calendarEvents[existingCardIndex], 
-        level: newLevel, 
-        nextReview: nextReviewDate.toISOString() 
-      };
-    } else {
-      calendarEvents.push({
-        question: selectedCard.question,
-        theme: selectedCard.parent,
-        level: newLevel,
-        nextReview: nextReviewDate.toISOString(),
-      });
-    }
 
-    localStorage.setItem("calendarData", JSON.stringify(calendarEvents));
-  
+    setSubCards(updatedCards);
+    updateLocalStorage(updatedCards);
+
     closeModal();
   };
+
+  const updateLocalStorage = (updatedCards) => {
+    localStorage.setItem("subCards", JSON.stringify(updatedCards));
+
+    let storedCalendarData = localStorage.getItem("calendarData");
+    let calendarEvents = storedCalendarData ? JSON.parse(storedCalendarData) : [];
+
+    updatedCards.forEach(card => {
+      const existingCardIndex = calendarEvents.findIndex(event => event.question === card.question);
+      if (existingCardIndex !== -1) {
+        calendarEvents[existingCardIndex] = {
+          ...calendarEvents[existingCardIndex],
+          level: card.level,
+          nextReview: card.nextReview
+        };
+      } else {
+        calendarEvents.push({
+          question: card.question,
+          theme: card.parent,
+          level: card.level,
+          nextReview: card.nextReview,
+        });
+      }
+    });
+
+    localStorage.setItem("calendarData", JSON.stringify(calendarEvents));
+  };
   
+  
+
   return (
     <div>
       <Navbar />
@@ -178,9 +239,8 @@ const CardPage = () => {
             </div>
             <div className="buttonRewied">
               <button onClick={markAsReviewed}>Réussi ✅</button>
-              <button onClick={markAsReviewed}>Echoué ❌</button>
+              <button onClick={markAsFailed}>Échoué ❌</button>
             </div>
-
           </div>
         </div>
       )}
