@@ -16,7 +16,6 @@ const CalendarPage = () => {
       }
     }
   }, []);
- //calendar-container calendar-header calendar-list calendar-card icon calendar-content level no-events
   return (
     <div>
       <Navbar />
@@ -28,7 +27,7 @@ const CalendarPage = () => {
         {events.length > 0 ? (
           events.map((event, index) => (
             <div key={index} className="calendar-card">
-              <div className="icon">0</div>
+              <div className="icon">📊</div>
               <div className="calendar-content">
                 <h3>{event.theme} - {event.question}</h3>
                 <p>Prochaine révision : <strong>{new Date(event.nextReview).toLocaleDateString()}</strong></p>

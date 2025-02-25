@@ -1,34 +1,57 @@
 .titleTheme{
-    text-align: center;
-  }
-  
+  text-align: center;
+  margin-top: 150px;
+}
+
 .cardTheme{
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    padding: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px;
 }
 
 .card{
-    font-weight: bold;
-    width: 150px;
-    height: 200px; 
-    border-radius: 10px; 
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    font-weight: bold;
-    font-size: 18px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    position: relative;
-    cursor: pointer
-  }
-  
-  
-  
-  .card:hover{
-    transform: scale(1.1);
-    cursor: pointer;
-  }
-  
+  width: 12vw;
+  min-width: 120px;
+  height: 30vh;
+  border-radius: 10px; 
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  cursor: pointer;
+  padding: 20px;
+  margin: 10px;
+  margin-bottom: 50px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.card button{
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-bottom-left-radius: 20%;
+  border-bottom: 1px solid #333;
+  border-left: 1px solid #333;
+  border-top-right-radius: 10px;
+  padding: 4px 8px;
+  background-color: red;
+}
+.card h3{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+  width: 100%;
+}
+
+
+.card:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}

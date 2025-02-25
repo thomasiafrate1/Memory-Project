@@ -1,181 +1,142 @@
 .containerModal {
-    position: fixed; /* Fixé à l'écran, ne bouge pas */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Assombrit le fond */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Toujours au-dessus */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2; 
+  color: #333;
 }
-  
-  /* Modal centré avec une taille adaptable */
+
 .modal {
-    border-radius: 10px;
-    background-color: aliceblue;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    width: 30vw;
-    max-width: 400px; /* Empêche qu'il soit trop large */
-    height: 40vh;
-    max-height: 500px; /* Empêche qu'il soit trop grand */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centre précisément */
-    z-index: 1001;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Ombre pour effet 3D */
-    overflow: hidden; /* Empêche le débordement */
-  }
-  
-  /* Alignement des boutons de couleur */
-  .modal div {
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap; /* Permet aux boutons de passer à la ligne sur mobile */
-    justify-content: center;
-    gap: 10px; /* Espacement entre les boutons */
-  }
-  
-  /* Boutons de couleur */
-  .modal button {
-    width: 40px;
-    height: 40px;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-  
-  .modal button:hover {
-    transform: scale(1.1);
-  }
-  
-  .confirmDelete {
-    background-color: red;
-    color: white;
-    padding: 10px;
-    margin: 10px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .cancelDelete {
-    background-color: gray;
-    color: white;
-    padding: 10px;
-    margin: 10px;
-    border: none;
-    cursor: pointer;
-  }
+  border-radius: 10px;
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  width: 30vw;
+  max-width: 400px; 
+  height: 40vh;
+  max-height: 500px; 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+  overflow: hidden; 
+}
+
+.modal div {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.buttonAjouter{
+  width: 50%;
+  height: 50px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.formulaireCouleurModal button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.modal button:hover {
+  transform: scale(1.1);
+}
+
+
+.confirmDelete {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.cancelDelete {
+  background-color: gray;
+  color: white;
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  cursor: pointer;
+}
 
 .closeModal {
-    position: absolute;
-    top: -30px;
-    right: -30px;
-    background: red;
-    border: none;
-    font-size: 20px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-  }
-  
-  /* Fond semi-transparent pour le modal */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background: red;
+  border: none;
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 00%;
+  border-bottom-left-radius: 30%;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+}
 
-  .formulaireModal{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .inputTitre{
-    width: 20vw;
-    border-radius: 7px;
-    height: 30px;
-  }
-  
-  .formulaireCouleurModal{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 
-  .divCouleur{
-    display: flex;
-    gap: 10px;
-    margin: 10px 0;
-  }
-  
-  .divCouleur button{
-    width: 40px;
-    height: 40px;
-  }
-  
-  /* Conteneur de la carte en mode modal */
-.modal-card {
-    position: relative;
-    width: 300px;
-    height: 400px;
-  }
-  
-  /* Conteneur de la carte avec effet flip */
-  .card-container {
-    width: 100%;
-    height: 100%;
-    perspective: 1000px;
-    cursor: pointer;
-  }
-  
-  /* Contenu de la carte */
-  .card-content {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.5s;
-  }
-  /* Rotation quand on clique */
-.card-container.flipped .card-content {
-    transform: rotateY(180deg);
-  }
-  
-  /* Face avant */
-  .card-front, .card-back {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    backface-visibility: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Face arrière */
-  .card-back {
-    background: #f8f9fa;
-    color: #333;
-    transform: rotateY(180deg);
-  }
+.formulaireModal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputTitre{
+  width: 20vw;
+  border-radius: 7px;
+  height: 30px;
+}
+
+.formulaireCouleurModal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formulaireCouleurModal button{
+  border: 1px solid #333;
+}
+
+.divCouleur{
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.divCouleur button{
+  width: 40px;
+  height: 40px;
+}

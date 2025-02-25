@@ -3,12 +3,12 @@ import React from "react";
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard.tsx";
-import Themes from "./pages/Themespage.tsx";
+import Themes from "./pages/CategoryPage.tsx";
 import Settings from "./pages/Settingspage.tsx";
 import Notification from "./pages/NotificationPage.tsx";
 import Connexion from "./pages/Connexionpage.tsx";
-import CardTheme from "./pages/cardThemepage.tsx";
-import QuestionAnswer from "./pages/questionAnswerpage.tsx";
+import CardTheme from "./pages/ThemePage.tsx";
+import QuestionAnswer from "./pages/CardPage.tsx";
 import Calendar from "./pages/CalendarPage.tsx";
 // import ThemesPage from "./pages/ThemesPage";  // Page de gestion des thèmes
 // import SettingsPage from "./pages/SettingsPage";  // Page de paramètres

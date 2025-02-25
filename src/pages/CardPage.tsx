@@ -5,7 +5,7 @@ import {defaultQuestions} from "../store/defaultData.ts";
 
 const INTERVALS = [1, 3, 7, 15, 30];
 
-const QuestionAnswerPage = () => {
+const CardPage = () => {
   const { themeName, questionanswerName } = useParams<{ themeName: string; questionanswerName: string }>();
   const [subCards, setSubCards] = useState<{ question: string; answer: string; color: string; parent: string; level: number; nextReview: string }[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -134,15 +134,15 @@ const QuestionAnswerPage = () => {
   return (
     <div>
       <Navbar />
-      <h1>{questionanswerName}</h1>
-      <p>Page de révision de "{questionanswerName}" dans le thème "{themeName}".</p>
+      <h1 className="titleTheme">{questionanswerName}</h1>
+      <p className="descriptionTitle">Page de révision de "{questionanswerName}" dans le thème "{themeName}".</p>
       <div className="containerQuestionAnswerTheme">
         {subCards.length > 0 ? (
           subCards.map((card, index) => (
             <div key={index} className="card" style={{backgroundColor: card.color}} onClick={() => openCardModal(card)}>
-              {card.question}
+               <h3>{card.question}</h3>
               <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}>
-                ❌
+              ✖
               </button>
             </div>
           ))
@@ -151,7 +151,7 @@ const QuestionAnswerPage = () => {
         )}
       </div>
 
-      <button className="buttonCreate" onClick={openCreateModal}>Créer une carte</button>
+      <button className="buttonCreate" onClick={openCreateModal}>Créer une carte +</button>
 
       {cardToDelete && (
         <div className="modal-overlay">
@@ -176,8 +176,11 @@ const QuestionAnswerPage = () => {
                 </div>
               </div>
             </div>
-            <button onClick={markAsReviewed}>Révisée</button>
-            <button className="closeModal" onClick={closeModal}>✖</button>
+            <div className="buttonRewied">
+              <button onClick={markAsReviewed}>Réussi ✅</button>
+              <button onClick={markAsReviewed}>Echoué ❌</button>
+            </div>
+
           </div>
         </div>
       )}
@@ -203,4 +206,4 @@ const QuestionAnswerPage = () => {
   );
 };
 
-export default QuestionAnswerPage;
+export default CardPage;

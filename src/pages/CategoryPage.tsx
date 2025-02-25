@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar.tsx";
 
 
 
-const Themes = () => {
+const CategoryPage = () => {
   const navigate = useNavigate();
 
   const originalCategories = [
@@ -107,12 +107,12 @@ const Themes = () => {
               <div
                 key={index}
                 className="CarteCat"
-                style={{     backgroundColor: category.originalCat ? "transparent" : category.color, backgroundImage: category.originalCat ? `url(${category.image})` : "none", cursor: "pointer", padding: "20px", borderRadius: "10px", margin: "10px" }}
+                style={{     backgroundColor: category.originalCat ? "transparent" : category.color, backgroundImage: category.originalCat ? `url(${category.image})` : "none", cursor: "pointer" }}
                 onClick={() => navigate(`/themes/${category.title}`)}
               >
                 <h3>{category.title}</h3>
                  {!category.originalCat && (
-                  <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCategory(category); }}>❌</button>
+                  <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCategory(category); }}>✖</button>
                 )}
               </div>
             ))
@@ -121,7 +121,7 @@ const Themes = () => {
           )}
         </div>
 
-        <button className="buttonCreate" onClick={() => setIsModalOpen(true)} style={{ display: "block", margin: "20px auto", padding: "10px 20px", fontSize: "16px" }}>Créer une catégorie</button>
+        <button className="buttonCreate" onClick={() => setIsModalOpen(true)} style={{ display: "block", margin: "20px auto", padding: "10px 20px", fontSize: "16px" }}>Créer une catégorie +</button>
       </main>
 
       {categoryToDelete && (
@@ -154,7 +154,7 @@ const Themes = () => {
                 <button onClick={() => handleColorSelect("grey")} style={{ backgroundColor: "grey" }}></button>
               </div>
             </div>
-            <button onClick={addCategoryFromModal} style={{ width: "10vw" }}>Ajouter</button>
+            <button className="buttonAjouter" onClick={addCategoryFromModal}>Ajouter</button>
           </div>
         </div>
       )}
@@ -162,4 +162,4 @@ const Themes = () => {
   );
 };
 
-export default Themes;
+export default CategoryPage;

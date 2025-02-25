@@ -10,7 +10,7 @@ const Dashboard = () => {
       <main className="dashboard-container">
         <section className="hero-section">
           <div className="hero-content">
-            <h1>Memory App : Améliorez votre apprentissage</h1>
+            <h1>Echo Memories : Améliorez votre apprentissage</h1>
             <p>Révisez intelligemment avec la répétition espacée et des cartes mémoire interactives.</p>
             <button className="cta-button">
               <Link to="/themes">Commencer</Link>
@@ -22,20 +22,20 @@ const Dashboard = () => {
         </section>
 
         <section className="features-section">
-          <h2>Pourquoi utiliser Memory App ?</h2>
+          <h2>Pourquoi utiliser Echo Memories ?</h2>
           <div className="features-container">
             <div className="feature-card">
-              <img src="/brain.jpg"/>
+              <img src="/memoire.png"/>
               <h3>Cartes Mémoire</h3>
               <p>Créez, révisez et personnalisez vos cartes pour une meilleure rétention.</p>
             </div>
             <div className="feature-card">
-              <img src="/brain.jpg" />
+              <img src="/horloge.png" />
               <h3>Répétition Espacée</h3>
               <p>Boostez votre mémoire en révisant aux bons moments.</p>
             </div>
             <div className="feature-card">
-              <img src="/brain.jpg"/>
+              <img src="/20sur20.gif"/>
               <h3>Suivi des progrès</h3>
               <p>Analysez vos performances pour optimiser votre apprentissage.</p>
             </div>

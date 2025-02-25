@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
-import Footer from "../components/Footer.tsx";
 import { defaultThemes } from "../store/defaultData.ts";
 
 
-const CardThemePage = () => {
+const ThemePage = () => {
   const { themeName } = useParams<{ themeName: string }>();
   const [cards, setCards] = useState<{ title: string; color: string; theme: string }[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,25 +70,22 @@ const CardThemePage = () => {
         {cards.length > 0 ? (
           cards.map((card, index) => (
             <div key={index} className="card" style={{ backgroundColor: card.color }} onClick={() => navigate(`${window.location.pathname}/${card.title}`)}>
-              {card.title}
-              <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}> X </button>
+              <h3>{card.title}</h3>
+              <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}>✖</button>
             </div>
           ))
         ) : (
           <p style={{ textAlign: "center", width: "100%" }}>Aucune carte disponible pour ce thème.</p>
         )}
       </div>
-      <button className="buttonCreate" onClick={() => setIsModalOpen(true)}>Ajouter une carte</button>
-      <Footer />
+      <button className="buttonCreate" onClick={() => setIsModalOpen(true)}>Créer un thème +</button>
       {isModalOpen && (
-        <div className="modal">
+        <div className="containerModal">
+          <div className="modal">
           <h1>Ajouter une carte</h1>
           <button className="closeModal" onClick={() => setIsModalOpen(false)}>✖</button>
-          <div className="formulaireModal">
-            <div>
-              <input type="text" placeholder="Titre" className="inputTitre" value={newCardTitle} onChange={(e) => setNewCardTitle(e.target.value)}/>
-            </div>
-            <div className="formulaireCouleurModal">
+          <input type="text" placeholder="Titre" className="inputTitre" value={newCardTitle} onChange={(e) => setNewCardTitle(e.target.value)}/>
+          <div className="formulaireCouleurModal">
               <p>Choisissez une couleur :</p>
               <div className="divCouleur">
                 <button onClick={() => setNewCardColor("blue")} style={{ backgroundColor: "blue" }}></button>
@@ -99,11 +95,13 @@ const CardThemePage = () => {
                 <button onClick={() => setNewCardColor("black")} style={{ backgroundColor: "black", color: "white" }}></button>
                 <button onClick={() => setNewCardColor("white")} style={{ backgroundColor: "white", border: "1px solid black" }}></button>
                 <button onClick={() => setNewCardColor("red")} style={{ backgroundColor: "red" }}></button>
+                <button onClick={() => setNewCardColor("grey")} style={{ backgroundColor: "grey" }}></button>
               </div>
             </div>
-            <button onClick={addCard}>Ajouter</button>
+            <button className="buttonAjouter" onClick={addCard}>Ajouter</button>
           </div>
         </div>
+        
       )}
 
       {cardToDelete && (
@@ -120,4 +118,4 @@ const CardThemePage = () => {
   );
 };
 
-export default CardThemePage;
+export default ThemePage;
