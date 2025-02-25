@@ -16,7 +16,10 @@ const Navbar = () => {
   
   return (
     <nav className="navbar">
-      <h1 className="navbar-logo">Echo Memories</h1>
+      <div className="logoAndtitle">
+        <img src="/logo_transparent.png" className="logoImg" />
+        <h1 className="navbar-logo">Echo Memories</h1>
+      </div>
       <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
         <div className={isOpen ? "bar open" : "bar"}></div>
         <div className={isOpen ? "bar open" : "bar"}></div>

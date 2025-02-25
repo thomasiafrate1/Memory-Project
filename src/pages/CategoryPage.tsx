@@ -154,7 +154,7 @@ const CategoryPage = () => {
                 <button onClick={() => handleColorSelect("grey")} style={{ backgroundColor: "grey" }}></button>
               </div>
             </div>
-            <button className="buttonAjouter" onClick={addCategoryFromModal}>Ajouter</button>
+            <button className="cta-button" onClick={addCategoryFromModal}>Ajouter</button>
           </div>
         </div>
       )}

@@ -39,6 +39,8 @@
   font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
+  color: aliceblue;
+  font-weight: bold;
 }
 
 .cta-button a {

@@ -186,19 +186,26 @@ const CardPage = () => {
       )}
 
       {isModalOpen && (
-        <div className="modal-overlay">
+        <div className="containerModal">
           <div className="modal">
             <h1>Créer une carte</h1>
             <button className="closeModal" onClick={() => setIsModalOpen(false)}>✖</button>
-            <input type="text" placeholder="Question" value={newQuestion} onChange={(e) => setNewQuestion(e.target.value)} />
-            <input type="text" placeholder="Réponse" value={newAnswer} onChange={(e) => setNewAnswer(e.target.value)} />
-            <p>Choisissez une couleur :</p>
-            <div style={{ display: "flex", gap: "10px", justifyContent: "center", marginBottom: "10px" }}>
-              {["blue", "yellow", "green", "pink", "black", "white", "red"].map((color) => (
-                <button key={color} onClick={() => setNewCardColor(color)} style={{ backgroundColor: color, width: "40px", height: "40px" }}></button>
-              ))}
+            <input className="inputTitre" type="text" placeholder="Question" value={newQuestion} onChange={(e) => setNewQuestion(e.target.value)} />
+            <input className="inputTitre" type="text" placeholder="Réponse" value={newAnswer} onChange={(e) => setNewAnswer(e.target.value)} />
+            <div className="formulaireCouleurModal">
+              <p>Choisissez une couleur :</p>
+              <div className="divCouleur">
+                <button onClick={() => setNewCardColor("blue")} style={{ backgroundColor: "blue" }}></button>
+                <button onClick={() => setNewCardColor("yellow")} style={{ backgroundColor: "yellow" }}></button>
+                <button onClick={() => setNewCardColor("green")} style={{ backgroundColor: "green" }}></button>
+                <button onClick={() => setNewCardColor("pink")} style={{ backgroundColor: "pink" }}></button>
+                <button onClick={() => setNewCardColor("black")} style={{ backgroundColor: "black", color: "white" }}></button>
+                <button onClick={() => setNewCardColor("white")} style={{ backgroundColor: "white", border: "1px solid black" }}></button>
+                <button onClick={() => setNewCardColor("red")} style={{ backgroundColor: "red" }}></button>
+                <button onClick={() => setNewCardColor("grey")} style={{ backgroundColor: "grey" }}></button>
+              </div>
             </div>
-            <button onClick={addCard}>Ajouter</button>
+            <button className="cta-button" onClick={addCard}>Ajouter</button>
           </div>
         </div>
       )}

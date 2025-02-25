@@ -52,6 +52,21 @@
   transition: 0.4s;
 }
 
+.logoImg{
+  
+  width: 80px;
+}
+
+.logoAndtitle{
+  display: flex;
+  cursor: default;
+}
+
+.logoAndtitle:hover{
+  transform: scale(1.1);
+  transition: 0.2s;
+}
+
 @media screen and (max-width: 768px) {
   .hamburger {
     display: flex;

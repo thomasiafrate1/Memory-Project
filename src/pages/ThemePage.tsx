@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
 import { defaultThemes } from "../store/defaultData.ts";
 
-
 const ThemePage = () => {
   const { themeName } = useParams<{ themeName: string }>();
   const [cards, setCards] = useState<{ title: string; color: string; theme: string }[]>([]);
@@ -17,7 +16,7 @@ const ThemePage = () => {
     if (themeName) {
       const storedThemes = localStorage.getItem("themes");
       let userThemes = [];
-  
+
       if (storedThemes) {
         try {
           userThemes = JSON.parse(storedThemes).filter((theme) => theme.theme === themeName);
@@ -25,24 +24,35 @@ const ThemePage = () => {
           console.error("Erreur de parsing du localStorage:", error);
         }
       }
-  
-      // Vérifier si la catégorie a des Thèmes par défaut
+
       const defaultThemeList = defaultThemes[themeName] || [];
-      setCards([...defaultThemeList, ...userThemes]); 
+      setCards([...defaultThemeList, ...userThemes]);
     }
   }, [themeName]);
-  
 
   const addCard = () => {
     if (!newCardTitle || !newCardColor) {
       alert("Veuillez entrer un titre et choisir une couleur !");
       return;
     }
-    const newCard = { title: newCardTitle, color: newCardColor, theme: themeName };
-    const updatedCards = [...cards, newCard];
 
-    setCards(updatedCards);
-    localStorage.setItem("cards", JSON.stringify([...JSON.parse(localStorage.getItem("cards") || "[]"), newCard]));
+    const newCard = { title: newCardTitle, color: newCardColor, theme: themeName };
+
+    const storedThemes = localStorage.getItem("themes");
+    let updatedThemes = [];
+
+    if (storedThemes) {
+      try {
+        updatedThemes = JSON.parse(storedThemes);
+      } catch (error) {
+        console.error("Erreur de parsing du localStorage:", error);
+      }
+    }
+
+    updatedThemes.push(newCard);
+
+    setCards([...cards, newCard]);
+    localStorage.setItem("themes", JSON.stringify(updatedThemes));
 
     setNewCardTitle("");
     setNewCardColor(null);
@@ -57,7 +67,7 @@ const ThemePage = () => {
     if (cardToDelete) {
       const updatedCards = cards.filter(card => card.title !== cardToDelete.title);
       setCards(updatedCards);
-      localStorage.setItem("cards", JSON.stringify(updatedCards));
+      localStorage.setItem("themes", JSON.stringify(updatedCards));
       setCardToDelete(null);
     }
   };
@@ -69,23 +79,38 @@ const ThemePage = () => {
       <div className="cardTheme">
         {cards.length > 0 ? (
           cards.map((card, index) => (
-            <div key={index} className="card" style={{ backgroundColor: card.color }} onClick={() => navigate(`${window.location.pathname}/${card.title}`)}>
+            <div
+              key={index}
+              className="card"
+              style={{ backgroundColor: card.color }}
+              onClick={() => navigate(`${window.location.pathname}/${card.title}`)}
+            >
               <h3>{card.title}</h3>
-              <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}>✖</button>
+              <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}>
+                ✖
+              </button>
             </div>
           ))
         ) : (
           <p style={{ textAlign: "center", width: "100%" }}>Aucune carte disponible pour ce thème.</p>
         )}
       </div>
+
       <button className="buttonCreate" onClick={() => setIsModalOpen(true)}>Créer un thème +</button>
+
       {isModalOpen && (
         <div className="containerModal">
           <div className="modal">
-          <h1>Ajouter une carte</h1>
-          <button className="closeModal" onClick={() => setIsModalOpen(false)}>✖</button>
-          <input type="text" placeholder="Titre" className="inputTitre" value={newCardTitle} onChange={(e) => setNewCardTitle(e.target.value)}/>
-          <div className="formulaireCouleurModal">
+            <h1>Ajouter un thème</h1>
+            <button className="closeModal" onClick={() => setIsModalOpen(false)}>✖</button>
+            <input
+              type="text"
+              placeholder="Titre"
+              className="inputTitre"
+              value={newCardTitle}
+              onChange={(e) => setNewCardTitle(e.target.value)}
+            />
+            <div className="formulaireCouleurModal">
               <p>Choisissez une couleur :</p>
               <div className="divCouleur">
                 <button onClick={() => setNewCardColor("blue")} style={{ backgroundColor: "blue" }}></button>
@@ -98,17 +123,16 @@ const ThemePage = () => {
                 <button onClick={() => setNewCardColor("grey")} style={{ backgroundColor: "grey" }}></button>
               </div>
             </div>
-            <button className="buttonAjouter" onClick={addCard}>Ajouter</button>
+            <button className="cta-button" onClick={addCard}>Ajouter</button>
           </div>
         </div>
-        
       )}
 
       {cardToDelete && (
         <div className="containerModal">
           <div className="modal">
             <h2>Supprimer {cardToDelete.title} ?</h2>
-            <p>Êtes-vous sûr de vouloir supprimer cette carte ? Cette action est irréversible.</p>
+            <p>Êtes-vous sûr de vouloir supprimer ce thème ? Cette action est irréversible.</p>
             <button className="confirmDelete" onClick={deleteCard}>Oui, supprimer</button>
             <button className="cancelDelete" onClick={() => setCardToDelete(null)}>Annuler</button>
           </div>
