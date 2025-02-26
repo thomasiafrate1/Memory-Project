@@ -16,6 +16,7 @@
   border-radius: 10px;
   background-color: aliceblue;
   display: flex;
+  color: #333;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -140,4 +141,62 @@
 .divCouleur button{
   width: 40px;
   height: 40px;
+}
+
+
+@media (max-width: 768px) {
+  .cat {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .buttonCreate {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background-color: #02c021;
+    color: white;
+    border: none;
+    text-align: center;
+  }
+
+  .buttonCreate::before {
+    content: "+";
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: -4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+
+
+  .modal {
+    width: 90%;
+    max-width: 350px;
+    height: auto;
+    max-height: 80vh;
+    padding: 15px;
+  }
+
+  .inputTitre {
+    width: 80%;
+  }
+
+  .divCouleur {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
 }

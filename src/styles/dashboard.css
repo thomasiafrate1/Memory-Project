@@ -1,22 +1,27 @@
+
+
+/* Global container */
 .dashboard-container {
   max-width: 1200px;
   margin: auto;
   padding: 20px;
-  margin-top: 150px;
+  margin-top: 100px;
+  display: flex;
   flex-direction: column;
 }
 
+/* Hero Section */
 .hero-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
   background-color: #f8f8f8;
   box-shadow: 0px 8px 6px rgba(233, 189, 189, 0.1);
   padding: 50px;
   border-radius: 10px;
 }
 
+/* Hero Content */
 .hero-content {
   max-width: 50%;
 }
@@ -39,7 +44,7 @@
   font-size: 1rem;
   border-radius: 5px;
   cursor: pointer;
-  color: aliceblue;
+  color: white;
   font-weight: bold;
 }
 
@@ -53,12 +58,14 @@
   background-color: #0056b3;
 }
 
+/* Hero Image */
 .hero-image img {
   width: 400px;
   max-width: 100%;
   border-radius: 10px;
 }
 
+/* Features Section */
 .features-section {
   text-align: center;
   margin-top: 50px;
@@ -75,6 +82,7 @@
   gap: 20px;
 }
 
+/* Feature Card */
 .feature-card {
   background-color: white;
   padding: 20px;
@@ -97,4 +105,82 @@
 .feature-card p {
   font-size: 1rem;
   color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .dashboard-container {
+    margin-top: 80px;
+  }
+
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1.1rem;
+  }
+
+  .hero-image img {
+    width: 300px;
+  }
+
+  .features-container {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .feature-card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    margin-top: 120px;
+    padding: 15px;
+    margin-bottom: 100px;
+  }
+
+  .hero-section {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .hero-image img {
+    width: 250px;
+  }
+
+  .features-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-card {
+    width: 90%;
+  }
 }

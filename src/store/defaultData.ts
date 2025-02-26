@@ -26,7 +26,7 @@ export const defaultThemes = {
       { title: "Figures de style", color: "pink" }
     ],
     Marketing: [
-      { title: "Publicité", color: "gold" },
+      { title: "Marketing Digital", color: "gold" },
       { title: "Stratégie de marque", color: "darkblue" }
     ],
     Luxe: [
@@ -114,6 +114,54 @@ export const defaultThemes = {
       { question: "Quelle figure de style compare avec 'comme' ?", answer: "Une comparaison", color: "pink" },
       { question: "Quelle figure de style exagère un propos ?", answer: "Une hyperbole", color: "pink" },
       { question: "Quelle figure de style remplace un mot par un autre ?", answer: "Une métonymie", color: "pink" }
+    ],
+
+    // Marketing
+    "Marketing Digital": [
+      { question: "Quelle est la différence entre SEO et SEA ?", answer: "SEO est le référencement naturel, SEA est le référencement payant.", color: "gold" },
+      { question: "Qu'est-ce que le taux de conversion ?", answer: "C'est le pourcentage de visiteurs réalisant une action souhaitée.", color: "gold" },
+      { question: "Quelle plateforme est la plus utilisée pour la publicité digitale ?", answer: "Google Ads", color: "gold" }
+    ],
+    "Stratégie de marque": [
+      { question: "Qu'est-ce qu'une identité visuelle ?", answer: "L'ensemble des éléments graphiques représentant une marque.", color: "darkblue" },
+      { question: "Quelle est la première étape d’une stratégie de marque ?", answer: "Définir sa mission et ses valeurs.", color: "darkblue" },
+      { question: "Pourquoi le storytelling est-il important en marketing ?", answer: "Il permet de créer un lien émotionnel avec le public.", color: "darkblue" }
+    ],
+
+    // Luxe
+    "Marques de luxe": [
+      { question: "Quelle est la marque de luxe française la plus valorisée ?", answer: "Louis Vuitton", color: "goldenrod" },
+      { question: "Quel est le slogan de Chanel ?", answer: "Coco Chanel - 'La mode passe, le style reste'.", color: "goldenrod" },
+      { question: "Quel groupe possède Gucci et Balenciaga ?", answer: "Kering", color: "goldenrod" }
+    ],
+    "Produits de luxe": [
+      { question: "Quel est l’ingrédient principal des montres Rolex ?", answer: "L’acier Oystersteel", color: "silver" },
+      { question: "Quel est le sac de luxe le plus iconique ?", answer: "Le Birkin de Hermès", color: "silver" },
+      { question: "Quel est le champagne de luxe le plus réputé ?", answer: "Dom Pérignon", color: "silver" }
+    ],
+
+    // Ecologie
+    "Réchauffement climatique": [
+      { question: "Quelle est la principale cause du réchauffement climatique ?", answer: "Les émissions de gaz à effet de serre.", color: "green" },
+      { question: "Quelle est la température maximale ciblée par l’Accord de Paris ?", answer: "1.5°C au-dessus des niveaux préindustriels.", color: "green" },
+      { question: "Quel est le plus grand pollueur mondial ?", answer: "La Chine (mais aussi les États-Unis et l'Inde).", color: "green" }
+    ],
+    "Énergies renouvelables": [
+      { question: "Quelle énergie renouvelable utilise le vent ?", answer: "L’énergie éolienne.", color: "darkgreen" },
+      { question: "Quelle est la source d’énergie renouvelable la plus utilisée dans le monde ?", answer: "L’énergie hydraulique.", color: "darkgreen" },
+      { question: "Quelle énergie utilise la chaleur de la Terre ?", answer: "L’énergie géothermique.", color: "darkgreen" }
+    ],
+
+    // Politiques
+    "Systèmes politiques": [
+      { question: "Quel est le régime politique de la France ?", answer: "Une République démocratique.", color: "gray" },
+      { question: "Quelle est la différence entre une monarchie et une république ?", answer: "Une monarchie est dirigée par un roi/reine, une république par un président élu.", color: "gray" },
+      { question: "Quel pays a un système de gouvernement fédéral ?", answer: "Les États-Unis.", color: "gray" }
+    ],
+    "Institutions internationales": [
+      { question: "Quelle est l’institution qui régule la paix dans le monde ?", answer: "L’ONU (Organisation des Nations Unies).", color: "darkgray" },
+      { question: "Quel organisme gère la politique monétaire européenne ?", answer: "La Banque Centrale Européenne (BCE).", color: "darkgray" },
+      { question: "Que signifie FMI ?", answer: "Fonds Monétaire International.", color: "darkgray" }
     ]
   };
   

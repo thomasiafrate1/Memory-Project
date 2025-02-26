@@ -121,7 +121,7 @@ const CategoryPage = () => {
           )}
         </div>
 
-        <button className="buttonCreate" onClick={() => setIsModalOpen(true)} style={{ display: "block", margin: "20px auto", padding: "10px 20px", fontSize: "16px" }}>Créer une catégorie +</button>
+        <button className="buttonCreate" onClick={() => setIsModalOpen(true)} style={{ display: "block", margin: "20px auto", padding: "10px 20px", fontSize: "16px" }} aria-label="Créer une catégorie"></button>
       </main>
 
       {categoryToDelete && (
@@ -144,14 +144,18 @@ const CategoryPage = () => {
             <div className="formulaireCouleurModal">
               <p>Choisissez une couleur :</p>
               <div>
-                <button onClick={() => handleColorSelect("blue")} style={{ backgroundColor: "blue" }}></button>
-                <button onClick={() => handleColorSelect("yellow")} style={{ backgroundColor: "yellow" }}></button>
-                <button onClick={() => handleColorSelect("green")} style={{ backgroundColor: "green" }}></button>
                 <button onClick={() => handleColorSelect("red")} style={{ backgroundColor: "red" }}></button>
-                <button onClick={() => handleColorSelect("pink")} style={{ backgroundColor: "pink" }}></button>
+                <button onClick={() => handleColorSelect("tomato")} style={{ backgroundColor: "tomato" }}></button>
+                <button onClick={() => handleColorSelect("orange")} style={{ backgroundColor: "orange" }}></button>
+                <button onClick={() => handleColorSelect("maroon")} style={{ backgroundColor: "maroon" }}></button>
                 <button onClick={() => handleColorSelect("black")} style={{ backgroundColor: "black" }}></button>
-                <button onClick={() => handleColorSelect("white")} style={{ backgroundColor: "white" }}></button>
-                <button onClick={() => handleColorSelect("grey")} style={{ backgroundColor: "grey" }}></button>
+                <button onClick={() => handleColorSelect("darkblue")} style={{ backgroundColor: "darkblue" }}></button>
+                <button onClick={() => handleColorSelect("blue")} style={{ backgroundColor: "blue" }}></button>
+                <button onClick={() => handleColorSelect("blueviolet")} style={{ backgroundColor: "blueviolet" }}></button>
+                <button onClick={() => handleColorSelect("deeppink")} style={{ backgroundColor: "deeppink" }}></button>
+                <button onClick={() => handleColorSelect("gray")} style={{ backgroundColor: "gray" }}></button>
+                <button onClick={() => handleColorSelect("seagreen")} style={{ backgroundColor: "seagreen" }}></button>
+                <button onClick={() => handleColorSelect("green")} style={{ backgroundColor: "green" }}></button>
               </div>
             </div>
             <button className="cta-button" onClick={addCategoryFromModal}>Ajouter</button>

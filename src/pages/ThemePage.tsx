@@ -94,9 +94,11 @@ const ThemePage = () => {
         ) : (
           <p style={{ textAlign: "center", width: "100%" }}>Aucune carte disponible pour ce thème.</p>
         )}
+        
       </div>
 
-      <button className="buttonCreate" onClick={() => setIsModalOpen(true)}>Créer un thème +</button>
+      <button className="buttonCreate" onClick={() => setIsModalOpen(true)} aria-label="Créer un thème +"></button>
+      <div className="buttonReturn" onClick={() => navigate('/themes')}>⭠</div>
 
       {isModalOpen && (
         <div className="containerModal">
@@ -113,14 +115,18 @@ const ThemePage = () => {
             <div className="formulaireCouleurModal">
               <p>Choisissez une couleur :</p>
               <div className="divCouleur">
-                <button onClick={() => setNewCardColor("blue")} style={{ backgroundColor: "blue" }}></button>
-                <button onClick={() => setNewCardColor("yellow")} style={{ backgroundColor: "yellow" }}></button>
-                <button onClick={() => setNewCardColor("green")} style={{ backgroundColor: "green" }}></button>
-                <button onClick={() => setNewCardColor("pink")} style={{ backgroundColor: "pink" }}></button>
-                <button onClick={() => setNewCardColor("black")} style={{ backgroundColor: "black", color: "white" }}></button>
-                <button onClick={() => setNewCardColor("white")} style={{ backgroundColor: "white", border: "1px solid black" }}></button>
                 <button onClick={() => setNewCardColor("red")} style={{ backgroundColor: "red" }}></button>
-                <button onClick={() => setNewCardColor("grey")} style={{ backgroundColor: "grey" }}></button>
+                <button onClick={() => setNewCardColor("tomato")} style={{ backgroundColor: "tomato" }}></button>
+                <button onClick={() => setNewCardColor("orange")} style={{ backgroundColor: "orange" }}></button>
+                <button onClick={() => setNewCardColor("maroon")} style={{ backgroundColor: "maroon" }}></button>
+                <button onClick={() => setNewCardColor("black")} style={{ backgroundColor: "black" }}></button>
+                <button onClick={() => setNewCardColor("darkblue")} style={{ backgroundColor: "darkblue" }}></button>
+                <button onClick={() => setNewCardColor("blue")} style={{ backgroundColor: "blue" }}></button>
+                <button onClick={() => setNewCardColor("blueviolet")} style={{ backgroundColor: "blueviolet" }}></button>
+                <button onClick={() => setNewCardColor("deeppink")} style={{ backgroundColor: "deeppink" }}></button>
+                <button onClick={() => setNewCardColor("gray")} style={{ backgroundColor: "gray" }}></button>
+                <button onClick={() => setNewCardColor("seagreen")} style={{ backgroundColor: "seagreen" }}></button>
+                <button onClick={() => setNewCardColor("green")} style={{ backgroundColor: "green" }}></button>
               </div>
             </div>
             <button className="cta-button" onClick={addCard}>Ajouter</button>

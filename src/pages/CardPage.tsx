@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.tsx";
 import { defaultQuestions } from "../store/defaultData.ts";
 
@@ -15,6 +16,7 @@ const CardPage = () => {
   const [newQuestion, setNewQuestion] = useState("");
   const [newAnswer, setNewAnswer] = useState("");
   const [newCardColor, setNewCardColor] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (questionanswerName) {
@@ -200,7 +202,10 @@ const CardPage = () => {
       <div className="containerQuestionAnswerTheme">
         {subCards.length > 0 ? (
           subCards.map((card, index) => (
-            <div key={index} className="card" style={{backgroundColor: card.color}} onClick={() => openCardModal(card)}>
+            <div key={index} 
+            className="card" 
+            style={{backgroundColor: card.color}} 
+            onClick={() => openCardModal(card)}>
                <h3>{card.question}</h3>
               <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}>
               ✖
@@ -212,7 +217,8 @@ const CardPage = () => {
         )}
       </div>
 
-      <button className="buttonCreate" onClick={openCreateModal}>Créer une carte +</button>
+      <button className="buttonCreate" onClick={openCreateModal} aria-label="Créer une carte +"></button>
+      <div className="buttonReturn" onClick={() => navigate(`/themes/${themeName}`)}>⭠</div>
 
       {cardToDelete && (
         <div className="modal-overlay">
@@ -255,14 +261,18 @@ const CardPage = () => {
             <div className="formulaireCouleurModal">
               <p>Choisissez une couleur :</p>
               <div className="divCouleur">
-                <button onClick={() => setNewCardColor("blue")} style={{ backgroundColor: "blue" }}></button>
-                <button onClick={() => setNewCardColor("yellow")} style={{ backgroundColor: "yellow" }}></button>
-                <button onClick={() => setNewCardColor("green")} style={{ backgroundColor: "green" }}></button>
-                <button onClick={() => setNewCardColor("pink")} style={{ backgroundColor: "pink" }}></button>
-                <button onClick={() => setNewCardColor("black")} style={{ backgroundColor: "black", color: "white" }}></button>
-                <button onClick={() => setNewCardColor("white")} style={{ backgroundColor: "white", border: "1px solid black" }}></button>
                 <button onClick={() => setNewCardColor("red")} style={{ backgroundColor: "red" }}></button>
-                <button onClick={() => setNewCardColor("grey")} style={{ backgroundColor: "grey" }}></button>
+                <button onClick={() => setNewCardColor("tomato")} style={{ backgroundColor: "tomato" }}></button>
+                <button onClick={() => setNewCardColor("orange")} style={{ backgroundColor: "orange" }}></button>
+                <button onClick={() => setNewCardColor("maroon")} style={{ backgroundColor: "maroon" }}></button>
+                <button onClick={() => setNewCardColor("black")} style={{ backgroundColor: "black" }}></button>
+                <button onClick={() => setNewCardColor("darkblue")} style={{ backgroundColor: "darkblue" }}></button>
+                <button onClick={() => setNewCardColor("blue")} style={{ backgroundColor: "blue" }}></button>
+                <button onClick={() => setNewCardColor("blueviolet")} style={{ backgroundColor: "blueviolet" }}></button>
+                <button onClick={() => setNewCardColor("deeppink")} style={{ backgroundColor: "deeppink" }}></button>
+                <button onClick={() => setNewCardColor("gray")} style={{ backgroundColor: "gray" }}></button>
+                <button onClick={() => setNewCardColor("seagreen")} style={{ backgroundColor: "seagreen" }}></button>
+                <button onClick={() => setNewCardColor("green")} style={{ backgroundColor: "green" }}></button>
               </div>
             </div>
             <button className="cta-button" onClick={addCard}>Ajouter</button>

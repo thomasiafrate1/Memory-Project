@@ -68,6 +68,11 @@
 }
 
 @media screen and (max-width: 768px) {
+
+
+
+
+
   .hamburger {
     display: flex;
   }
@@ -86,12 +91,13 @@
   }
 
   .nav-links.open {
-    height: 250px;
+    height: 180px;
     padding-top: 10px;
   }
 
   .nav-links li {
     padding: 10px 0;
+    text-transform:uppercase;
   }
 
   .bar.open:nth-child(1) {
