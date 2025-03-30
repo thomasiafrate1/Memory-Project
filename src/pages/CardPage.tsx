@@ -16,6 +16,7 @@ const CardPage = () => {
   const [newQuestion, setNewQuestion] = useState("");
   const [newAnswer, setNewAnswer] = useState("");
   const [newCardColor, setNewCardColor] = useState<string | null>(null);
+  const [cardToEdit, setCardToEdit] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,7 +42,6 @@ const CardPage = () => {
     }
   }, [questionanswerName]);
   
-
   const openCreateModal = () => {
     setIsModalOpen(true);
     setNewQuestion("");
@@ -56,18 +56,45 @@ const CardPage = () => {
     }
     const nextReviewDate = new Date();
     nextReviewDate.setDate(nextReviewDate.getDate() + INTERVALS[0]);
-    const newSubCard = {
-      question: newQuestion,
-      answer: newAnswer,
-      color: newCardColor,
-      parent: questionanswerName,
-      level: 0,
-      nextReview: nextReviewDate.toISOString()
-    };
-    const updatedSubCards = [...subCards, newSubCard];
-    setSubCards(updatedSubCards);
-    updateLocalStorage(updatedSubCards);
-    setIsModalOpen(false);
+    let storedSubCards = localStorage.getItem("subCards");
+    let updatedSubCards = storedSubCards ? JSON.parse(storedSubCards) : [];
+    if (cardToEdit) {
+      const oldQuestion = cardToEdit.question;
+      updatedSubCards = updatedSubCards.map(card =>
+        card.question === oldQuestion && card.parent === questionanswerName ? {
+              ...card,
+              question: newQuestion,
+              answer: newAnswer,
+              color: newCardColor,
+            } : card
+      );
+      const storedCalendarData = localStorage.getItem("calendarData");
+      if (storedCalendarData) {
+        let calendarEvents = JSON.parse(storedCalendarData);
+        calendarEvents = calendarEvents.map(event =>
+          event.question === oldQuestion && event.theme === questionanswerName
+            ? { ...event, question: newQuestion }
+            : event
+        );
+        localStorage.setItem("calendarData", JSON.stringify(calendarEvents));
+      }
+      setSubCards(subCards.map(card =>
+        card.question === oldQuestion ? { ...card, question: newQuestion, answer: newAnswer, color: newCardColor } : card
+      ));
+      setCardToEdit(null);
+    } else {
+      const newSubCard = {
+        question: newQuestion,
+        answer: newAnswer,
+        color: newCardColor,
+        parent: questionanswerName,
+        level: 0,
+        nextReview: nextReviewDate.toISOString()
+      };
+      updatedSubCards.push(newSubCard);
+      setSubCards([...subCards, newSubCard]);
+    }
+    updateLocalStorage(updatedSubCards); setNewQuestion(""); setNewAnswer(""); setNewCardColor(null); setIsModalOpen(false);
   };
   
   const confirmDeleteCard = (card) => {
@@ -97,17 +124,14 @@ const CardPage = () => {
       console.error("❌ ERREUR: selectedCard est null !");
       return;
     }
-    console.log("🔍 Carte avant mise à jour :", selectedCard);
     let storedSubCards = localStorage.getItem("subCards");
     let updatedCards = storedSubCards ? JSON.parse(storedSubCards) : [];
     let updatedCard = updatedCards.find(card => card.question === selectedCard.question);
     if (updatedCard) {
       let currentLevel = updatedCard.level ?? 0;
       let newLevel = Math.min(currentLevel + 1, INTERVALS.length - 1);
-      console.log(`⬆️ Passage de niveau : ${currentLevel} ➡️ ${newLevel}`);
       let nextReviewDate = new Date();
       nextReviewDate.setDate(nextReviewDate.getDate() + INTERVALS[newLevel]);
-      console.log(`📅 Nouvelle date de révision : ${nextReviewDate.toISOString()}`);
       updatedCard.level = newLevel;
       updatedCard.nextReview = nextReviewDate.toISOString();
       localStorage.setItem("subCards", JSON.stringify(updatedCards));
@@ -124,7 +148,6 @@ const CardPage = () => {
       console.error("❌ ERREUR: selectedCard est null !");
       return;
     }
-    console.log("🔍 Carte avant mise à jour (Échec) :", selectedCard);
     let storedSubCards = localStorage.getItem("subCards");
     let updatedCards = storedSubCards ? JSON.parse(storedSubCards) : [];
     let updatedCard = updatedCards.find(card => card.question === selectedCard.question);
@@ -132,15 +155,10 @@ const CardPage = () => {
       let newLevel = 0;
       let nextReviewDate = new Date();
       nextReviewDate.setDate(nextReviewDate.getDate() + INTERVALS[newLevel]);
-      console.log(`❌ Échec -> Niveau réinitialisé à ${newLevel}`);
-      console.log(`📅 Nouvelle date de révision après échec : ${nextReviewDate.toISOString()}`);
       updatedCard.level = newLevel;
       updatedCard.nextReview = nextReviewDate.toISOString();
       localStorage.setItem("subCards", JSON.stringify(updatedCards));
       updateLocalStorage(updatedCards, updatedCard);
-
-
-
     }
     setSubCards(updatedCards);
     setSelectedCard(null);
@@ -149,23 +167,17 @@ const CardPage = () => {
   
   const updateLocalStorage = (updatedCards, updatedCard) => {
     localStorage.setItem("subCards", JSON.stringify(updatedCards));
-  
     if (!updatedCard) return;
-  
     let storedCalendarData = localStorage.getItem("calendarData");
     let calendarEvents = storedCalendarData ? JSON.parse(storedCalendarData) : [];
-  
     const existingCardIndex = calendarEvents.findIndex(event => event.question === updatedCard.question);
-  
     if (existingCardIndex !== -1) {
-      // ✅ Mettre à jour la carte existante dans le calendrier
       calendarEvents[existingCardIndex] = {
         ...calendarEvents[existingCardIndex],
         level: updatedCard.level,
         nextReview: updatedCard.nextReview
       };
     } else {
-      // ✅ Ajouter la carte si elle n'existe pas encore
       calendarEvents.push({
         question: updatedCard.question,
         theme: updatedCard.parent,
@@ -173,27 +185,23 @@ const CardPage = () => {
         nextReview: updatedCard.nextReview,
       });
     }
-  
-    console.log("📦 Données mises à jour dans localStorage :", calendarEvents);
     localStorage.setItem("calendarData", JSON.stringify(calendarEvents));
   };
   
   return (
     <div>
       <Navbar />
+
       <h1 className="titleTheme">{questionanswerName}</h1>
       <p className="descriptionTitle">Page de révision de "{questionanswerName}" dans le thème "{themeName}".</p>
+
       <div className="containerQuestionAnswerTheme">
         {subCards.length > 0 ? (
           subCards.map((card, index) => (
-            <div key={index} 
-            className="card" 
-            style={{backgroundColor: card.color}} 
-            onClick={() => openCardModal(card)}>
-               <h3>{card.question}</h3>
-              <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}>
-              ✖
-              </button>
+            <div key={index} className="card" style={{backgroundColor: card.color}} onClick={() => openCardModal(card)}>
+              <h3>{card.question}</h3>
+              <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}>✖</button>
+              <button className="editButton" onClick={(e) => {e.stopPropagation(); setCardToEdit(card); setNewQuestion(card.question); setNewAnswer(card.answer); setNewCardColor(card.color); setIsModalOpen(true);}}>✎</button>
             </div>
           ))
         ) : (
@@ -214,7 +222,8 @@ const CardPage = () => {
           </div>
         </div>
       )}
-            {selectedCard && (
+
+      {selectedCard && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
             <div className={`card-container ${isFlipped ? "flipped" : ""}`} onClick={() => setIsFlipped(!isFlipped)}>

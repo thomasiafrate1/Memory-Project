@@ -20,7 +20,6 @@ const Dashboard = () => {
             <img src="/brain.jpg" />
           </div>
         </section>
-
         <section className="features-section">
           <h2>Pourquoi utiliser Echo Memories ?</h2>
           <div className="features-container">

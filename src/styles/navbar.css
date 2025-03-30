@@ -52,8 +52,7 @@
   transition: 0.4s;
 }
 
-.logoImg{
-  
+.logoImg{ 
   width: 80px;
 }
 
@@ -68,11 +67,6 @@
 }
 
 @media screen and (max-width: 768px) {
-
-
-
-
-
   .hamburger {
     display: flex;
   }

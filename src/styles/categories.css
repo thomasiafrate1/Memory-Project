@@ -1,7 +1,24 @@
 .cat{ 
-  display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+#categoryFilter{
+  margin-left: 10px;
+  padding: 5px;
+}
+
+.titleCategory{
+  text-align: center;
+}
+
+.filterCategory{
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .buttonCreate{
@@ -19,6 +36,7 @@
   bottom: 30px;
   cursor: pointer;
   justify-content: center;
+  padding: 10px 20px;
 }
 
 .buttonCreate:hover{
@@ -76,38 +94,48 @@
 
 .CarteCat button{
   position: absolute;
-  top: 0;
-  right: 0;
-  border-radius: 0;
-  border-bottom-left-radius: 20%;
   border-bottom: 1px solid #333;
   border-left: 1px solid #333;
-  border-top-right-radius: 10px;
 }
 
 .CarteCat:hover{
-    scale: 1.1;
-  }
+  scale: 1.1;
+}
 
 .deleteButton {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: red;
-    border: none;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 5px;
-  }
+  position: absolute;
+  right: -7px;
+  top: -7px;
+  background-color: red;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 50%;
+}
   
-  .deleteButton:hover {
-    background-color: darkred;
-  }
-  
+.deleteButton:hover {
+  background-color: darkred;
+}
 
-/* Responsive CSS */
+.editButton {
+  position: absolute;
+  left: -7px;
+  top: -7px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 50%;
+}
+
+.editButton:hover {
+  background-color: #0056b3;
+}
+
 @media (max-width: 768px) {
   .cat {
     grid-template-columns: repeat(2, 1fr);
@@ -158,7 +186,6 @@
   }
 
   .buttonReturn::before {
-  
     font-size: 32px;
     font-weight: bold;
     display: flex;

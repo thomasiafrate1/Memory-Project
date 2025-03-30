@@ -4,7 +4,7 @@
   padding: 20px;
   color: white;
   font-family: Arial, sans-serif;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .notification-header {
@@ -69,4 +69,88 @@
   text-align: center;
   color: #bbb;
   font-size: 14px;
+}
+
+.notification-settings {
+  margin: 30px auto;
+  padding: 20px;
+  max-width: 500px;
+  background-color: #f2f2f2;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 150px;
+}
+
+.notification-settings h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.notification-settings label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px 0;
+  font-size: 16px;
+  color: #444;
+}
+
+.notification-settings input[type="time"] {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.notification-settings input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #02c021;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.buttonNotifRegister{
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #02c021;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.buttonNotifStop{
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+@media (max-width: 600px) {
+  .notification-settings {
+    padding: 15px;
+    margin: 20px;
+    margin-top: 150px;
+  }
+
+  .notification-settings h2 {
+    font-size: 18px;
+  }
+
+  .notification-settings label {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .notification-settings input[type="time"] {
+    width: 95%;
+  }
 }

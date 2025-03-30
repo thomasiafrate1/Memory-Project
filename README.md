@@ -1,70 +1,139 @@
-# Getting Started with Create React App
+# Echo Memories
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🧠 Qu'est-ce que c'est ?
 
-## Available Scripts
+**Echo Memories** est une application de mémorisation fondée sur le système de **répétition espacée**. Chaque carte possède un niveau, et plus on réussit à la mémoriser, plus l'intervalle de révision s’allonge :
 
-In the project directory, you can run:
+- Niveau 1 → Revoir dans **1 jour**
+- Niveau 2 → Revoir dans **3 jours**
+- Niveau 3 → Revoir dans **7 jours**
+- Niveau 4 → Revoir dans **15 jours**
+- Niveau 5 → Revoir dans **30 jours**
 
-### `npm start`
+➡️ Une fois le niveau 5 atteint et les 30 jours passés, on considère la carte comme **retenue**.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+> ✅ **C’est aussi une Progressive Web App (PWA)** : elle fonctionne **hors ligne**, peut être **installée sur un téléphone**, et gère les **notifications**.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 📄 Contenu de l'application
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+L'application contient **4 pages principales** :
 
-### `npm run build`
+### 1. Accueil
+- Affiche des infos sur l’application
+- Contient un bouton pour accéder à la page Catégories
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. Catégories
+- Contient des **catégories originales**
+- Chaque catégorie contient des **thèmes**
+- Chaque thème contient des **cartes question / réponse**
+- Possibilité de **créer des catégories** avec un titre et une couleur
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 3. Notifications
+- Permet de :
+  - Choisir une **heure de notification**
+  - Lancer une **notification toutes les 5 minutes**
+  - **Enregistrer ou stopper** les notifs
+- En dessous : une section **"À réviser aujourd'hui"**, qui liste **uniquement les cartes à réviser le jour même**.
 
-### `npm run eject`
+### 4. Calendrier
+- Affiche **toutes les cartes programmées pour révision**
+- Montre leur **niveau actuel** et la **date de prochaine révision**
+- Lié au bouton **"Réussi ✅"** de la page carte
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## ⚙️ Fonctionnement détaillé
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Page Catégories
+- On peut créer une **catégorie**
+- En cliquant, on arrive à une page contenant des **thèmes**
+- On peut créer un **thème**
+- En cliquant sur un thème, on arrive à une page contenant des **cartes Q/R**
+- Sur chaque carte :
+  - Un clic = afficher la réponse
+  - 2 boutons :  
+    - ✅ **"Réussi"** : augmente le niveau de la carte  
+    - ❌ **"Échoué"** : remet le niveau à 0
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Page Notification
+- Partie haute : permet de choisir une **heure de départ** pour des notifications régulières toutes les **5 minutes**
+- Boutons pour **activer ou stopper**
+- Partie basse : cartes à **réviser aujourd’hui uniquement**
 
-## Learn More
+### Page Calendrier
+- Montre toutes les cartes à venir
+- Affiche :
+  - Question
+  - Niveau
+  - Prochaine date de révision
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🚀 Comment installer le projet depuis GitHub
 
-### Code Splitting
+1. **Cloner le repo**
+   ```bash
+   git clone https://github.com/ton-compte/echo-memories.git
+   cd echo-memories
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. **Installer les dépendances**
+    ```bash
+    npm install
 
-### Analyzing the Bundle Size
+3. **Créer un build de production**
+    ```bash
+    npm run build
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+4. **Lancer un serveur statique pour tester la PWA**
+    ```bash
+    npm install -g serve
+    serve -s build
 
-### Making a Progressive Web App
+5. **Ouvrir l'application dans le navigateur**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Accéder à : `http://localhost:3000`
 
-### Advanced Configuration
+6. **Tester le fonctionnement PWA**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Ouvrir les **Outils de développement (F12)** dans le navigateur
+- Aller dans l'onglet **Application**
+- Vérifier :
+    - ✅ Le fichier **Manifest** est présent
+    - ✅ Le **Service Worker** est enregistré et actif
+    - ✅ Cochez l’option **Hors ligne** et rechargez pour tester le mode hors ligne
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🗂️ Organisation du projet
 
-### `npm run build` fails to minify
+L'arborescence est claire :
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+📁 public/  
+├─ images, service-worker.js, manifest... 
+📁 src/     
+├─ components/          → Navbar, Footer, Card, etc.
+├─ pages/               → Chaque page principale 
+├─ store/               → Données par défaut (questions, thèmes) 
+├─ styles/              → Feuilles CSS organisées par page 
+├─ App.tsx              → App principale 
+├─ index.tsx / index.js → Entrée de l’app
+```
+
+---
+
+## 🛠️ Technologies utilisées 
+
+- **ReactJS**
+- **Typescript**
+- **HTML / CSS / Javascript**
+- **PWA avec Service Worker & Manifest**
+
+--- 
+
+## 👨‍💻  Auteur
+
+**Thomas Iafrate**

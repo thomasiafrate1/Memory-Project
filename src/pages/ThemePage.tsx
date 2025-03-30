@@ -10,6 +10,7 @@ const ThemePage = () => {
   const [newCardTitle, setNewCardTitle] = useState("");
   const [newCardColor, setNewCardColor] = useState<string | null>(null);
   const [cardToDelete, setCardToDelete] = useState<{ title: string; color: string; theme: string } | null>(null);
+  const [cardToEdit, setCardToEdit] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,16 +32,12 @@ const ThemePage = () => {
   }, [themeName]);
 
   const addCard = () => {
+    const storedThemes = localStorage.getItem("themes");
+    let updatedThemes = [];
     if (!newCardTitle || !newCardColor) {
       alert("Veuillez entrer un titre et choisir une couleur !");
       return;
     }
-
-    const newCard = { title: newCardTitle, color: newCardColor, theme: themeName };
-
-    const storedThemes = localStorage.getItem("themes");
-    let updatedThemes = [];
-
     if (storedThemes) {
       try {
         updatedThemes = JSON.parse(storedThemes);
@@ -48,12 +45,37 @@ const ThemePage = () => {
         console.error("Erreur de parsing du localStorage:", error);
       }
     }
-
-    updatedThemes.push(newCard);
-
-    setCards([...cards, newCard]);
-    localStorage.setItem("themes", JSON.stringify(updatedThemes));
-
+  
+    if (cardToEdit) {
+      const oldTitle = cardToEdit.title;
+      const modifiedThemes = updatedThemes.map((card) =>
+        card.title === oldTitle && card.theme === themeName
+          ? { ...card, title: newCardTitle, color: newCardColor }
+          : card
+      );
+      const storedSubCards = localStorage.getItem("subCards");
+      if (storedSubCards) {
+        try {
+          const parsedSubCards = JSON.parse(storedSubCards);
+          const updatedSubCards = parsedSubCards.map(card =>
+            card.parent === oldTitle ? { ...card, parent: newCardTitle } : card
+          );
+          localStorage.setItem("subCards", JSON.stringify(updatedSubCards));
+        } catch (error) {
+          console.error("Erreur en mettant à jour les subCards:", error);
+        }
+      }
+      setCards(cards.map(card =>
+        card.title === oldTitle ? { ...card, title: newCardTitle, color: newCardColor } : card
+      ));
+      localStorage.setItem("themes", JSON.stringify(modifiedThemes));
+      setCardToEdit(null);
+    } else {
+      const newCard = { title: newCardTitle, color: newCardColor, theme: themeName };
+      updatedThemes.push(newCard);
+      setCards([...cards, newCard]);
+      localStorage.setItem("themes", JSON.stringify(updatedThemes));
+    }
     setNewCardTitle("");
     setNewCardColor(null);
     setIsModalOpen(false);
@@ -76,25 +98,23 @@ const ThemePage = () => {
     <div>
       <Navbar />
       <h1 className="titleTheme">{themeName}</h1>
+      
       <div className="cardTheme">
         {cards.length > 0 ? (
           cards.map((card, index) => (
-            <div
-              key={index}
-              className="card"
-              style={{ backgroundColor: card.color }}
-              onClick={() => navigate(`${window.location.pathname}/${card.title}`)}
-            >
+            <div key={index} className="card" style={{ backgroundColor: card.color }} onClick={() => navigate(`${window.location.pathname}/${card.title}`)}>
               <h3>{card.title}</h3>
               <button className="deleteButton" onClick={(e) => { e.stopPropagation(); confirmDeleteCard(card); }}>
                 ✖
+              </button>
+              <button className="editButton" onClick={(e) => {e.stopPropagation(); setCardToEdit(card); setNewCardTitle(card.title); setNewCardColor(card.color); setIsModalOpen(true);}}>
+                ✎
               </button>
             </div>
           ))
         ) : (
           <p style={{ textAlign: "center", width: "100%" }}>Aucune carte disponible pour ce thème.</p>
         )}
-        
       </div>
 
       <button className="buttonCreate" onClick={() => setIsModalOpen(true)} aria-label="Créer un thème +"></button>

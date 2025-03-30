@@ -8,7 +8,6 @@ const CalendarPage = () => {
     fetchCalendarEvents();
   }, []);
 
-  // Fonction pour charger les événements
   const fetchCalendarEvents = () => {
     const storedCalendarData = localStorage.getItem("calendarData");
     if (storedCalendarData) {
@@ -22,11 +21,9 @@ const CalendarPage = () => {
     }
   };
 
-  // ✅ Fonction pour supprimer toutes les révisions du calendrier
   const clearCalendar = () => {
-    localStorage.removeItem("calendarData"); // Supprime les données du stockage local
-    setEvents([]); // Vide l'état React
-    console.log("✅ Toutes les révisions ont été supprimées !");
+    localStorage.removeItem("calendarData"); 
+    setEvents([]);
   };
 
   return (
@@ -35,7 +32,7 @@ const CalendarPage = () => {
       <div className="calendar-container">
         <div className="calendar-header">
           <h1>Calendrier des révisions</h1>
-          <button className="clear-all" onClick={clearCalendar}>Clear all</button> {/* Bouton ajouté ici */}
+          <button className="clear-all" onClick={clearCalendar}>Clear all</button>
         </div>
         <div className="calendar-list">
           {events.length > 0 ? (

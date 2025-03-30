@@ -29,21 +29,6 @@
   background-repeat: no-repeat;
 }
 
-
-.card button{
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-radius: 0;
-  border-bottom-left-radius: 20%;
-  border-top-right-radius: 20%;
-  border-bottom: 1px solid #333;
-  border-left: 1px solid #333;
-  border-top: 0px solid #333;
-  border-right: 0px solid #333;
-  padding: 4px 8px;
-  background-color: red;
-}
 .card h3{
   display: flex;
   justify-content: center;
@@ -52,7 +37,6 @@
   font-size: 18px;
   width: 100%;
 }
-
 
 .card:hover{
   transform: scale(1.1);
@@ -63,7 +47,6 @@
   .cardTheme {
     grid-template-columns: repeat(2, 1fr);
     gap: 0px;
-    
   }
 
   .buttonCreate {

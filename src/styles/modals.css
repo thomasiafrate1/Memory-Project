@@ -61,7 +61,6 @@
   transform: scale(1.1);
 }
 
-
 .confirmDelete {
   background-color: red;
   color: white;
@@ -143,7 +142,6 @@
   height: 40px;
 }
 
-
 @media (max-width: 768px) {
   .cat {
     grid-template-columns: repeat(2, 1fr);
@@ -178,8 +176,6 @@
     width: 100%;
     height: 100%;
   }
-
-
 
   .modal {
     width: 90%;
